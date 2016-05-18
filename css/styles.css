@@ -1,0 +1,150 @@
+* {
+  font-family: 'Lato', sans-serif;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  height: 100%;
+}
+
+body {
+  color: #3a86ff;
+  font-weight: 300;
+}
+
+header {
+  background: #ffbe0b;
+  height: 60px;
+  margin-right: 50px;
+  position: fixed;
+  z-index: 50;
+  width: 100%;
+}
+
+h1 {
+  text-align: left;
+  font-size: 1.6em;
+  line-height: 60px;
+  color: white;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+a {
+  color: #a49e8d;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #3d85c6;
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.fa-lg.fa-toggle-up,
+.fa-lg.fa-toggle-down {
+  margin: 5px;
+  padding: 10px;
+}
+
+.filter {
+  margin-top: 5px;
+}
+.list {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  z-index: 1;
+  padding-top: 10px;
+}
+
+.list-event li {
+  list-style-position: inside;
+  list-style-type: none;
+  padding: 5px 10px;
+  background: #f7f7f7;
+  border-bottom: #ffbe0b 1px solid;
+}
+
+.list-event li:hover {
+  cursor: pointer;
+  background: #ffbe0b;
+}
+
+.list-event li:first-child {
+  border-top: #ffbe0b 1px solid;
+}
+
+.list-event li.amazing {
+  background: #ffbe0b;
+}
+
+.list-super-container {
+  padding-top: 10px;
+}
+
+.map {
+  max-width: 100%;
+  height: 100%;
+  background-color: #CCC;
+  z-index: 0;
+}
+
+
+.search {
+  max-width: 100%;
+  vertical-align: top;
+  z-index: 1;
+  margin-top: 30px;
+}
+
+.menu {
+  position: absolute;
+  width: 250px;
+  z-index: 10;
+  background: #f7f7f7;
+  top: 60px;
+  max-height: 90%;
+  overflow: scroll;
+  padding: 10px;
+}
+
+
+#floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 80%;
+  z-index: 10;
+  background-color: #f7f7f7
+  padding: 5px;
+  border: 1px solid #f7f7f7;
+  text-align: right;
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+#floating-panel {
+  margin-left: -42px;
+  margin-top: 15px;
+}
+

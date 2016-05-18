@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="=width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no">
+
+  <title>Paris events</title>
+
+  <link href='https://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css">
+  <script type="text/javascript" src="js/app.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1><i id="nav-button" class="dropdown-toggle fa fa-lg fa-toggle-down"></i>Coworking cafés in Paris</h1>
+  </header>
+
+  <div id ="container" class="container">
+    <div id="menu" class="menu">
+      <div id="nav-row" class="nav-row">
+        <div id="floating-panel">
+        <button id="drop" onclick="drop()">Drop Markers</button>
+        </div>
+      </div>
+      <div id="list-container" class="list-container">
+
+
+        <div id="filter" class="filter">
+          <div>Filter results:
+            <form id="filter-form" class="filter-form">
+              <input id="filter-input" class="filter-input" placeholder="Type name from Events List">
+              <button type="submit">Go!</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="list" class="list">
+          <h2>Café list</h2>
+          <ul id="list-event" class="list-event">
+            <li></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="map" class="map"></div>
+  </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#menu").hide();
+    $( ".dropdown-toggle" ).click(function() {
+      if($("#menu").is(":visible")){
+        $("#menu").hide();
+      }
+      else {
+        $("#menu").show();
+      }
+    });
+  });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKV7Nh4wLfoA6UmaKtD4ghppnaYioE2VE&callback=initializeMap" async defer></script>
+</body>
+</html>
