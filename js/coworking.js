@@ -1,7 +1,7 @@
-var places = [
+var coworking_places = [
 {
   name: 'Hubsy',
-  address: '41 Rue Réaumur, 75003 Paris'
+  address: '41 Rue Réaumur, 75003 Paris',
   fee: '5 € /first hour then 2 € / every half-an-hour, 20 € /day',
   lat: '48.8657378',
   lng: '2.3541439',
@@ -57,12 +57,12 @@ var places = [
   lng: '2.3495396',
   url: 'https://paris.numa.co/Cowork-Accueil',
   type: 'Co-working space',
-  info: 'Numa Cowork space can be hired for events.',
+  info: 'Numa Cowork space can be hired for events.'
 },
 {
   name: 'Cool and Workers',
   address: '30-34 Rue du Chemin Vert, 75011 Paris',
-  fee: '4 €/hour, 20 €/day'
+  fee: '4 €/hour, 20 €/day',
   lat: '48.8580496',
   lng: '2.3733548',
   url: 'http://www.coolandworkers.com',
@@ -87,9 +87,7 @@ var places = [
   lng: '2.3630581',
   url: 'http://cafe-craft.com/home/',
   type: 'Co-working café',
-  info: [{'meeting_rooms': '?',
-            'wifi': 'Free Wi-fi'}],
-  'photo': ''
+  info: 'Free wi-fi'
 },
 {
   name: "Draft Atelier",
