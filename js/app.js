@@ -1,16 +1,7 @@
+
 'use strict';
 // ** The model for app **
-var model = [
-{
-  name: 'Hubsy',
-  address: '41 Rue Réaumur, 75003 Paris',
-  fee: '5 € /first hour then 2 € / every half-an-hour, 20 € /day',
-  lat: 48.8657378,
-  lng: 2.3541439,
-  url: 'http://www.hubsy.fr',
-  type: 'Co-working café',
-  info: 'Meeting rooms for 6 persons'
-},
+var initialSpaces = [
 {
   name: 'Hubsy',
   address: '41 Rue Réaumur, 75003 Paris',
@@ -149,19 +140,19 @@ var model = [
   lng: 2.3183272,
   url: 'http://coutumecafe.com/s/3214/Coutume+Babylnge',
   type: 'Café with free wi-fi access',
-  info: 'Possibility to reserve the meeting space from Suomi Instituutti'
-},
+  info: 'Possibility to reserve a meeting space from Finnish Institute'
+}
 ];
 
-
+//Create global variables to use in google maps
 var map;
+var infowindow;
+var marker;
 var markers = [];
 
 function initializeMap() {
-  // var myLatLng = {lat: 48.8566, lng: 2.3522};
-  // var mapDiv = d;
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 48.855188, lng: 2.348058},
+    center: {lat: 48.8676305, lng: 2.3495396},
     zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     mapTypeControl: true,
@@ -169,13 +160,12 @@ function initializeMap() {
     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     }
   });
-
 }
 
 function drop() {
- // clearMarkers();
-  for (var i = 0; i < model.length; i++) {
-    addMarkerWithTimeout(model[i], i * 600);
+  clearMarkers();
+  for (var i = 0; i <= initialSpaces.length; i++) {
+    addMarkerWithTimeout(initialSpaces[i-1], i * 10);
   }
 }
 
@@ -187,8 +177,8 @@ function addMarkerWithTimeout(position, timeout) {
       animation: google.maps.Animation.DROP
     }));
   }, timeout);
-}
 
+}
 
 function clearMarkers() {
   for (var i = 0; i < markers.length; i++) {
@@ -196,13 +186,38 @@ function clearMarkers() {
   }
   markers = [];
 }
-drop();
-addMarkerWithTimeout();
-//initializeMap();
+
+// Construct a new InfoWindow.
+
+
+//Creating Knockout bindings
+
+var Space = function (data) {
+  this.name = ko.observable(data.name);
+
+};
 
 var ViewModel = function () {
   var self = this;
- // Elements for Google maps
 
+  this.spaceList = ko.observableArray([]);
 
-}
+  initialSpaces.forEach(function(spaceItem){
+    self.spaceList.push( new Space(spaceItem) );
+  });
+
+  this.currentSpace = ko.observable( this.spaceList()[0] );
+
+  this.setSpace = function(clickedSpace) {
+     self.currentSpace(clickedSpace)
+   };
+};
+
+ // Activates knockout.js
+ko.applyBindings(new ViewModel());
+
+drop();
+addMarkerWithTimeout();
+//addInfowindow();
+//initializeMap();
+
