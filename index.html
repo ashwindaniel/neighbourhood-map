@@ -11,14 +11,17 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css">
-  <script type="text/javascript" src="js/jQuery.js"></script><script type="text/javascript" src="js/knockout-3.4.0.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<!--
+  <script type="text/javascript" src="js/jQuery.js"></script>
+  <script type="text/javascript" src="js/knockout-3.4.0.js"></script> -->
 
 
 </head>
 
 <body>
   <header>
-    <h1><i id="nav-button--slide-right" class="dropdown-toggle fa fa-lg fa-toggle-down"></i>Coworking in Paris</h1>
+    <h1><i id="nav-button" class="dropdown-toggle fa fa-lg fa-toggle-down"></i>Coworking in Paris</h1>
   </header>
 
   <div id ="container" class="container">
@@ -39,7 +42,7 @@
 
         <div id="list" class="list">
           <h2>Coworking cafés and spaces</h2>
-          <ul data-bind="foreach: spaceList">
+          <ul data-bind="foreach: spaceList" id="list-spaces" class="list-spaces">
             <li data-bind= "text: name"></li>
           </ul>
         </div>
@@ -47,12 +50,6 @@
     </div>
     <div id="map" class="map"></div>
   </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-
-
-
-
 
 
 <script type="text/javascript">
@@ -68,8 +65,9 @@
     });
   });
 </script>
-<script type="text/javascript" src="js/app.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKV7Nh4wLfoA6UmaKtD4ghppnaYioE2VE&callback=initializeMap" async defer></script>
+<script type="text/javascript" src="js/app.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKV7Nh4wLfoA6UmaKtD4ghppnaYioE2VE&v3&callback=initializeMap" async defer></script>
 </body>
 </html>

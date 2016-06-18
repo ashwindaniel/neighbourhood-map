@@ -20,7 +20,7 @@ body {
 }
 
 body {
-  color: #3a86ff;
+  color: #43aa8b;
   font-weight: 300;
 }
 
@@ -45,14 +45,17 @@ h2 {
 }
 
 a {
-  color: #a49e8d;
+  color: #43aa8b;
   font-weight: 300;
   text-decoration: none;
 }
 
 a:hover {
-  color: #3d85c6;
+  color: #43aa8b;
   text-decoration: underline;
+}
+ul, li {
+  color:#43aa8b;
 }
 
 .container {
@@ -71,6 +74,7 @@ a:hover {
   margin-top: 5px;
 }
 .list {
+  color:#254441;
   width: 100%;
   display: inline-block;
   vertical-align: top;
@@ -78,25 +82,27 @@ a:hover {
   padding-top: 10px;
 }
 
-.list-event li {
+.list-spaces li {
   list-style-position: inside;
   list-style-type: none;
   padding: 5px 10px;
   background: #f7f7f7;
-  border-bottom: #ffbe0b 1px solid;
+  border-bottom: #43aa8b 1px solid;
 }
 
-.list-event li:hover {
+.list-spaces li:hover {
   cursor: pointer;
-  background: #ffbe0b;
+
+  opacity: .5;
+  filter: alpha(opacity=100);
 }
 
 .list-event li:first-child {
-  border-top: #ffbe0b 1px solid;
+  border-top: #43aa8b 1px solid;
 }
 
 .list-event li.amazing {
-  background: #ffbe0b;
+  background: #43aa8b;
 }
 
 .list-super-container {
