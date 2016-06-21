@@ -1,4 +1,5 @@
-/* The model for app. These are the coworking spaces listings that will be shown to the user.*/
+/* The model for app. These are the coworking spaces listings that will
+be shown to the user.*/
 
 var initialSpaces = [
 {
@@ -120,15 +121,15 @@ var initialSpaces = [
 }
 ];
 
-/*Create global variables to use in google maps*/
+//Create global variables to use in google maps
 var map;
-/* Creat a new blak array for all the listing markers*/
+// Creat a new blank array for all the listing markers
 var markers = [];
 
-/*initializeMap() is called when page is loaded*/
+//initializeMap() is called when page is loaded
 function initializeMap() {
   'use strict';
-  /*Create styles arrays to use with the map*/
+//Create styles arrays to use with the map
 var styles = [
   {
     "featureType": "landscape",
@@ -193,7 +194,7 @@ var styles = [
   var largeInfoWindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
 
-  /*Set custom map marker*/
+  //Set custom map marker
 
   var image = {
     url: 'img/32x32.png',
@@ -206,7 +207,8 @@ var styles = [
   };
 
 
-  /* The following group uses location array to create an array of markers to initialize*/
+  /* The following group uses location array to create an array of
+  markers to initialize*/
   for (var i = 0; i < initialSpaces.length; i++) {
     // Get a position from the arrays
     var position = initialSpaces[i].location;
@@ -233,18 +235,20 @@ var styles = [
 
   map.fitBounds(bounds);
 
-  /* This fucntion populates the infowindow when the marker ic clicked.
-  We'll only allow one infowindow which will open at the marker that is
+  /* This function populates the infowindow when the marker is clicked.
+  We'll only allow one infowindow which will open at the marker
   clicked, and populate based on that markers position*/
   function populateInfoWindow(marker, infowindow) {
-    if (infowindow.marker != marker) {
-      infowindow.marker = marker;
+    // Check that infowindow is not already opened for this marker
+    if (infowindow.marker = marker) {
+      //infowindow.marker = marker;
       infowindow.setContent('<div>' + marker.title + '</div>');
       infowindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed
       infowindow.addListener('closeclick', function() {
-        infowindow.close;
+        infowindow.close();
       });
+
     }
   }
 
