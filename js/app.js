@@ -181,6 +181,7 @@ var styles = [
     ]
   }
 ]
+
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 48.8676305, lng: 2.3495396},
     zoom: 13,
@@ -209,6 +210,7 @@ var styles = [
 
   /* The following group uses location array to create an array of
   markers to initialize*/
+  var i;
   for (var i = 0; i < initialSpaces.length; i++) {
     // Get a position from the arrays
     var position = initialSpaces[i].location;
@@ -224,7 +226,7 @@ var styles = [
     });
     // Push the marker to array of markers
     markers.push(marker);
-    // Extend the boundaries of the mqp for each marker
+    // Extend the boundaries of the map for each marker
     bounds.extend(marker.position);
 
     // Creat an onclick event to open an infowindow at each marker
@@ -241,7 +243,7 @@ var styles = [
   function populateInfoWindow(marker, infowindow) {
     // Check that infowindow is not already opened for this marker
     if (infowindow.marker = marker) {
-      //infowindow.marker = marker;
+      infowindow.marker = marker;
       infowindow.setContent('<div>' + marker.title + '</div>');
       infowindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed
@@ -262,6 +264,23 @@ var Space = function (data) {
 
 var ViewModel = function () {
   var self = this;
+  // Search qnd listing menu
+ // Nav button
+  self.isNavClosed = ko.observable(false);
+
+  self.navClick = function () {
+    self.isNavClosed(!self.isNavClosed());
+  };
+
+
+
+
+  // Nav hide for small screens
+  self.navHide = function () {
+    self.isNavClosed(true);
+  };
+
+
 
   // List elements
   this.spaceList = ko.observableArray([]);

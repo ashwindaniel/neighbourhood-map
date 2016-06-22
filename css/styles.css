@@ -79,7 +79,7 @@ button {
   box-sizing: border-box;
 }
 
-.button li:hover {
+button li:hover {
   cursor: pointer;
   opacity: .5;
   filter: alpha(opacity=100);
@@ -91,8 +91,8 @@ button {
   height: 100%;
 }
 
-.fa-lg.fa-toggle-right,
-.fa-lg.fa-toggle-down {
+.fa-lg.fa-toggle-on,
+.fa-lg.fa-toggle-off {
   margin: 5px;
   padding: 10px;
 }
@@ -129,6 +129,8 @@ button {
   background-color: #CCC;
   z-index: 0;
 }
+
+
 .filter {
   background: #f7f7f7;
 
@@ -137,7 +139,6 @@ button {
 .filter-input {
   max-width: 80%;
   vertical-align: center;
-
   color: #43aa8b;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -146,7 +147,7 @@ button {
 
 .menu {
   position: absolute;
-  width: 300px;
+  width: 250px;
   height: 100%;
   z-index: 10;
   background: #f7f7f7;
@@ -156,7 +157,24 @@ button {
   padding: 10px;
 }
 
-#floating-panel {
+.menu-open {
+  display: : inline;
+}
+
+.moveUp {
+  transform: translateY(-1200px);
+}
+
+.nav-button:hover {
+  cursor: pointer;
+}
+
+.speed {
+  transition: transform 1s ease-out;
+}
+
+
+.floating-panel {
   position: absolute;
   top: 10px;
   left: 80%;

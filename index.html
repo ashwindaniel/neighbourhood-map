@@ -10,8 +10,8 @@
   <link href='https://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <!-- <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"> -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> -->
 <!--
   <script type="text/javascript" src="js/jQuery.js"></script>
   <script type="text/javascript" src="js/knockout-3.4.0.js"></script> -->
@@ -21,13 +21,13 @@
 
 <body>
   <header>
-    <h1><i id="nav-button" class="dropdown-toggle fa fa-lg fa-toggle-right"></i>Coworking in Paris</h1>
+    <h1><i id="nav-button" class="nav-button fa fa-lg fa-toggle-on" data-bind="click: navClick, css: {'fa-toggle-off': isNavClosed}"></i>Coworking in Paris</h1>
   </header>
 
   <div id ="container" class="container">
 
-    <div id="menu" class="menu">
-      <div id="foating-panel" class="foating-panel">
+    <div id="menu" class="menu speed" data-bind="css: {'moveUp': isNavClosed}">
+      <div id="floating-panel" class="floating-panel">
       </div>
 
       <div id="list-container" class="list-container">
@@ -35,7 +35,7 @@
         <div id="filter" class="filter">
           <div>Filter results:
             <form id="filter-form" class="filter-form">
-              <input id="filter-input" class="filter-input" placeholder="Type name from spaces list">
+              <input id="filter-input" class="filter-input" placeholder="Type name from the list">
               <button type="submit">Go!</button>
             </form>
           </div>
@@ -52,12 +52,10 @@
 
     <div id="map" class="map"></div>
   </div>
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKV7Nh4wLfoA6UmaKtD4ghppnaYioE2VE&v3&callback=initializeMap"></script>
 <script type="text/javascript" src="js/app.js"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyDKV7Nh4wLfoA6UmaKtD4ghppnaYioE2VE&v3&callback=initializeMap" async defer></script>
+
 </body>
 </html>
