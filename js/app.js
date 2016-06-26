@@ -119,7 +119,7 @@ var initialSpaces = [
   type: 'Café with free wi-fi access',
   info: 'Possibility to reserve a meeting space from Finnish Institute'
 }
-];
+]
 
 //Create global variables to use in google maps
 var map;
@@ -129,58 +129,59 @@ var markers = [];
 //initializeMap() is called when page is loaded
 function initializeMap() {
   'use strict';
-//Create styles arrays to use with the map
-var styles = [
-  {
-    "featureType": "landscape",
-    "stylers": [
-      { "hue": "#FFBB00"},
-      {"saturation": 43.400000000000006},
-      {"lightness": 37.599999999999994},
-      {"gamma": 1}
-    ]
-  },{
-    "featureType": "road.highway",
-    "stylers": [
-      {"hue": "#FFC200"},
-      {"saturation": -61.8},
-      {"lightness": 45.599999999999994},
-      {"gamma": 1}
-    ]
-  },{
-    "featureType": "road.arterial",
-    "stylers": [
-      {"hue": "#FF0300"},
-      {"saturation": -100},
-      {"lightness": 51.19999999999999},
-      {"gamma": 1}
-    ]
-  },{
-    "featureType": "road.local",
-    "stylers": [
-      {"hue": "#FF0300"},
-      {"saturation": -100},
-      {"lightness": 52},
-      {"gamma": 1}
-    ]
-  },{
-    "featureType": "water",
-    "stylers": [
-      {"hue": "#0078FF"},
-      {"saturation": -13.200000000000003},
-      {"lightness": 2.4000000000000057},
-      {"gamma": 1}
-    ]
-  },{
-    "featureType": "poi",
-    "stylers": [
-      {"hue": "#00FF6A"},
-      {"saturation": -1.0989010989011234},
-      {"lightness": 11.200000000000017},
-      {"gamma": 1}
-    ]
-  }
-]
+
+  //Create styles arrays to use with the map
+  var styles = [
+    {
+      "featureType": "landscape",
+      "stylers": [
+        { "hue": "#FFBB00"},
+        {"saturation": 43.400000000000006},
+        {"lightness": 37.599999999999994},
+        {"gamma": 1}
+      ]
+    },{
+      "featureType": "road.highway",
+      "stylers": [
+        {"hue": "#FFC200"},
+        {"saturation": -61.8},
+        {"lightness": 45.599999999999994},
+        {"gamma": 1}
+      ]
+    },{
+      "featureType": "road.arterial",
+      "stylers": [
+        {"hue": "#FF0300"},
+        {"saturation": -100},
+        {"lightness": 51.19999999999999},
+        {"gamma": 1}
+      ]
+    },{
+      "featureType": "road.local",
+      "stylers": [
+        {"hue": "#FF0300"},
+        {"saturation": -100},
+        {"lightness": 52},
+        {"gamma": 1}
+      ]
+    },{
+      "featureType": "water",
+      "stylers": [
+        {"hue": "#0078FF"},
+        {"saturation": -13.200000000000003},
+        {"lightness": 2.4000000000000057},
+        {"gamma": 1}
+      ]
+    },{
+      "featureType": "poi",
+      "stylers": [
+        {"hue": "#00FF6A"},
+        {"saturation": -1.0989010989011234},
+        {"lightness": 11.200000000000017},
+        {"gamma": 1}
+      ]
+    }
+  ]
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 48.8676305, lng: 2.3495396},
@@ -192,7 +193,9 @@ var styles = [
     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     }
   });
-  var largeInfoWindow = new google.maps.InfoWindow();
+  var largeInfoWindow = new google.maps.InfoWindow({
+    maxWidth: 200
+  });
   var bounds = new google.maps.LatLngBounds();
 
   //Set custom map marker
@@ -240,8 +243,10 @@ var styles = [
   /* This function populates the infowindow when the marker is clicked.
   We'll only allow one infowindow which will open at the marker
   clicked, and populate based on that markers position*/
+
   function populateInfoWindow(marker, infowindow) {
     // Check that infowindow is not already opened for this marker
+
     if (infowindow.marker = marker) {
       infowindow.marker = marker;
       infowindow.setContent('<div>' + marker.title + '</div>');
@@ -254,47 +259,33 @@ var styles = [
     }
   }
 
+  //Creating Knockout bindings
 
-//Creating Knockout bindings
-
-var Space = function (data) {
-  this.name = ko.observable(data.name);
-
-};
-
-var ViewModel = function () {
-  var self = this;
-  // Search qnd listing menu
- // Nav button
-  self.isNavClosed = ko.observable(false);
-
-  self.navClick = function () {
-    self.isNavClosed(!self.isNavClosed());
-  };
+  var ViewModel = function () {
+    var self = this;
+    var Space = function (data) {
+        this.name = ko.observable(data.name);
+    }
 
 
+    // Nav button needs to be fixed
+    self.isNavClosed = ko.observable(false);
 
+    self.navClick = function () {
+      self.isNavClosed(!self.isNavClosed());
+    };
 
-  // Nav hide for small screens
-  self.navHide = function () {
-    self.isNavClosed(true);
-  };
+    // Creating list elements from the spaceList
+    this.spaceList = ko.observableArray([]);
+    initialSpaces.forEach(function(spaceItem){
+      self.spaceList.push( new Space(spaceItem) );
+    });
+    this.currentSpace = ko.observable( this.spaceList()[0] );
+    this.setSpace = function(clickedSpace) {
+       self.currentSpace(clickedSpace)
+      };
+    };
 
-
-
-  // List elements
-  this.spaceList = ko.observableArray([]);
-
-  initialSpaces.forEach(function(spaceItem){
-    self.spaceList.push( new Space(spaceItem) );
-  });
-
-  this.currentSpace = ko.observable( this.spaceList()[0] );
-
-  this.setSpace = function(clickedSpace) {
-     self.currentSpace(clickedSpace)
-   };
-};
 
  // Activates knockout.js
 ko.applyBindings(new ViewModel());

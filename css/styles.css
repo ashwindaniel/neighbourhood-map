@@ -91,8 +91,8 @@ button li:hover {
   height: 100%;
 }
 
-.fa-lg.fa-toggle-on,
-.fa-lg.fa-toggle-off {
+.fa-toggle-on,
+.fa-toggle-off {
   margin: 5px;
   padding: 10px;
 }
@@ -155,10 +155,11 @@ button li:hover {
   max-height: 90%;
   overflow: scroll;
   padding: 10px;
+  opacity: 0.8;
 }
 
 .menu-open {
-  display: : inline;
+  display: inline;
 }
 
 .moveUp {
