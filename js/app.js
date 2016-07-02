@@ -54,7 +54,7 @@ var initialSpaces = [
   location: {lat: 48.8676305, lng: 2.3495396},
   url: 'https://paris.numa.co/Cowork-Accueil',
   type: 'Co-working space',
-  info: 'Numa Cowork space can be hired for events.',
+  info: 'Numa Cowork space can be hired for events.'
 },
 {
   name: 'Cool and Workers',
@@ -122,12 +122,12 @@ var initialSpaces = [
 ]
 
 //Create global variables to use in google maps
-var map;
-// Creat a new blank array for all the listing markers
+var map, marker;
+// Create a new blank array for all the listing markers
 var markers = [];
 
 //initializeMap() is called when page is loaded
-function initializeMap() {
+function googleSuccess() {
   'use strict';
 
   //Create styles arrays to use with the map
@@ -232,7 +232,7 @@ function initializeMap() {
     // Extend the boundaries of the map for each marker
     bounds.extend(marker.position);
 
-    // Creat an onclick event to open an infowindow at each marker
+    // Create an onclick event to open an infowindow at each marker
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfoWindow);
     });
@@ -259,12 +259,17 @@ function initializeMap() {
     }
   }
 
+
+
   //Creating Knockout bindings
 
   var ViewModel = function () {
     var self = this;
+    //Creating Space object
     var Space = function (data) {
         this.name = ko.observable(data.name);
+        this.location = ko.observable(data.location);
+        this.marker = ko.observable(data.marker);
     }
 
 
@@ -282,12 +287,13 @@ function initializeMap() {
     });
     this.currentSpace = ko.observable( this.spaceList()[0] );
     this.setSpace = function(clickedSpace) {
-       self.currentSpace(clickedSpace)
+      self.currentSpace(clickedSpace)
       };
+
     };
+
 
 
  // Activates knockout.js
 ko.applyBindings(new ViewModel());
 }
-
