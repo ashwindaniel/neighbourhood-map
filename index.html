@@ -35,7 +35,7 @@
         <div id="filter" class="filter">
           <div>Filter results:
             <form id="filter-form" class="filter-form">
-              <input id="filter-input" class="filter-input" placeholder="Search from the list">
+              <input data-bind="value: filter, valueUpdate:'keyup'" id="filter-input" class="filter-input" placeholder="Search from the list" >
               <button type="submit">Go!</button>
             </form>
           </div>
@@ -57,7 +57,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
 Google maps
 <script src="js/maperror.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=&v3&callback=googleSuccess" onerror="mapError()"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKV7Nh4wLfoA6UmaKtD4ghppnaYioE2VE&v3&callback=googleSuccess" onerror="mapError()"></script>
 <script src="js/app.js"></script>
 
 

@@ -6,6 +6,7 @@ This single page application shows a map of coworking cafés in Paris. This app 
 2. Google Maps
 3. Yelp
 4. Fontawesome
+5. JQuery
 
 ## Project Requirements / Features
 

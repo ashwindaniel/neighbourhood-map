@@ -122,7 +122,7 @@ var initialSpaces = [
 ]
 
 //Create global variables to use in google maps
-var map, marker;
+var map;
 // Create a new blank array for all the listing markers
 var markers = [];
 
@@ -193,9 +193,11 @@ function googleSuccess() {
     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     }
   });
+
   var largeInfoWindow = new google.maps.InfoWindow({
     maxWidth: 200
   });
+
   var bounds = new google.maps.LatLngBounds();
 
   //Set custom map marker
@@ -209,7 +211,6 @@ function googleSuccess() {
     // The anchor for this image is the base of the flagpole at (0, 32).
     anchor: new google.maps.Point(0, 32)
   };
-
 
   /* The following group uses location array to create an array of
   markers to initialize*/
@@ -259,38 +260,45 @@ function googleSuccess() {
     }
   }
 
+  //Creating Space object and Knockout bindings
+  var Space = function (data, id) {
+    this.name = ko.observable(data.name);
+    this.location = location;
+    this.marker = marker;
+    this.markerId = id;
+    this.filter = ko.observable("");
 
+    //self.filterValueLower = ko.observable(self.filterValue().toLowerCase());
+  }
 
-  //Creating Knockout bindings
 
   var ViewModel = function () {
     var self = this;
-    //Creating Space object
-    var Space = function (data) {
-        this.name = ko.observable(data.name);
-        this.location = ko.observable(data.location);
-        this.marker = ko.observable(data.marker);
-    }
-
 
     // Nav button needs to be fixed
-    self.isNavClosed = ko.observable(false);
+    this.isNavClosed = ko.observable(false);
 
-    self.navClick = function () {
-      self.isNavClosed(!self.isNavClosed());
+    this.navClick = function () {
+      this.isNavClosed(!this.isNavClosed());
     };
 
     // Creating list elements from the spaceList
     this.spaceList = ko.observableArray([]);
-    initialSpaces.forEach(function(spaceItem){
-      self.spaceList.push( new Space(spaceItem) );
+    initialSpaces.forEach(function(spaceItem, i){
+      self.spaceList.push( new Space(spaceItem, i) );
     });
-    this.currentSpace = ko.observable( this.spaceList()[0] );
-    this.setSpace = function(clickedSpace) {
-      self.currentSpace(clickedSpace)
-      };
 
-    };
+    // Creating click for the list item
+    this.itemClick = function (item) {
+      var markerId = item.markerId;
+      google.maps.event.trigger(markers[markerId], 'click');
+    }
+
+    // filtering from the list item
+    this.filter = function (item) {
+
+    }
+  };
 
 
 
