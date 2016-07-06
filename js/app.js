@@ -260,20 +260,21 @@ function googleSuccess() {
     }
   }
 
-  //Creating Space object and Knockout bindings
+  //Creating Space object
   var Space = function (data, id) {
     this.name = ko.observable(data.name);
     this.location = location;
     this.marker = marker;
     this.markerId = id;
-    this.filter = ko.observable("");
+    this.filter = ko.observable('');
 
-    //self.filterValueLower = ko.observable(self.filterValue().toLowerCase());
+
   }
 
 
   var ViewModel = function () {
     var self = this;
+    self.filter = ko.observable("");
 
     // Nav button needs to be fixed
     this.isNavClosed = ko.observable(false);
@@ -286,6 +287,7 @@ function googleSuccess() {
     this.spaceList = ko.observableArray([]);
     initialSpaces.forEach(function(spaceItem, i){
       self.spaceList.push( new Space(spaceItem, i) );
+
     });
 
     // Creating click for the list item
@@ -294,10 +296,24 @@ function googleSuccess() {
       google.maps.event.trigger(markers[markerId], 'click');
     }
 
-    // filtering from the list item
-    this.filter = function (item) {
+    //Filtering the Coworking cafés list
+    self.spaceList = ko.computed(function(item, i) {
+      var q = self.filter().toLowerCase();
+        return ko.utils.arrayFilter(self.spaceList(), function(item) {
+        console.log(item);
+          if (item.name().toLowerCase().indexOf(q) > -1) {
+            if (item.marker) item.marker.setVisible(true);
+              return true;
+              } else {
+                  item.marker.setVisible(false);
+                return false;
+              }
+            });
+    }, self);
 
-    }
+
+
+
   };
 
 

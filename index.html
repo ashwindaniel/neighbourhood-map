@@ -35,8 +35,8 @@
         <div id="filter" class="filter">
           <div>Filter results:
             <form id="filter-form" class="filter-form">
-              <input data-bind="value: filter, valueUpdate:'keyup'" id="filter-input" class="filter-input" placeholder="Search from the list" >
-              <button type="submit">Go!</button>
+              <input data-bind="textInput: filter, valueUpdate:'afterkeydown'" autocomplete="off" id="filter-input" class="filter-input" placeholder="Search from the list" >
+              <button type="submit" data-bind="enable: spaceList().length > 0">Go!</button>
             </form>
           </div>
         </div>
