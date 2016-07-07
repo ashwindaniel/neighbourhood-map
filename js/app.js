@@ -228,14 +228,25 @@ function googleSuccess() {
       animation: google.maps.Animation.DROP,
       id: i
     });
+    var toggleBounce = function(marker, infowindow) {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+          marker.setAnimation(null);
+        }, 700);
+      }
+    };
     // Push the marker to array of markers
     markers.push(marker);
     // Extend the boundaries of the map for each marker
     bounds.extend(marker.position);
 
-    // Create an onclick event to open an infowindow at each marker
+    // Create an onclick event to open an infowindow and bounce the marker at each marker
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfoWindow);
+      toggleBounce(this, largeInfoWindow);
     });
   }
 
@@ -267,8 +278,7 @@ function googleSuccess() {
     this.marker = marker;
     this.markerId = id;
     this.filter = ko.observable('');
-
-
+    this.visible = ko.observable(true);
   }
 
 
@@ -285,8 +295,8 @@ function googleSuccess() {
 
     // Creating list elements from the spaceList
     this.spaceList = ko.observableArray([]);
-    initialSpaces.forEach(function(spaceItem, i){
-      self.spaceList.push( new Space(spaceItem, i) );
+    initialSpaces.forEach(function(item, i){
+      self.spaceList.push( new Space(item, i) );
 
     });
 
@@ -294,10 +304,11 @@ function googleSuccess() {
     this.itemClick = function (item) {
       var markerId = item.markerId;
       google.maps.event.trigger(markers[markerId], 'click');
+
     }
 
     //Filtering the Coworking cafés list
-    self.spaceList = ko.computed(function(item, i) {
+    self.spaceList = ko.computed(function(item) {
       var q = self.filter().toLowerCase();
         return ko.utils.arrayFilter(self.spaceList(), function(item) {
         console.log(item);
@@ -310,12 +321,7 @@ function googleSuccess() {
               }
             });
     }, self);
-
-
-
-
   };
-
 
 
  // Activates knockout.js
