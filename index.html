@@ -32,18 +32,18 @@
 
       <div id="list-container" class="list-container">
 
-        <div id="filter" class="filter" data-bind="visible: spaceList().length > 0">
+        <div id="filter" class="filter">
           <div>Filter results:
             <form id="filter-form" class="filter-form">
-              <input data-bind="textInput: filter, valueUpdate:'afterkeydown'" autocomplete="off" id="filter-input" class="filter-input" placeholder="Search from the list" >
-              <button type="submit" >Clear</button>
+              <input data-bind="textInput: filter, valueUpdate:'afterkeydown'" autocomplete="on" id="filter-input" class="filter-input" placeholder="Search from the list" >
+              <button type="submit">Clear</button>
             </form>
           </div>
         </div>
 
         <div id="list" class="list">
           <h2>Coworking cafés</h2>
-          <ul data-bind="foreach: spaceList" id="list-spaces" class="list-spaces">
+          <ul data-bind="foreach: spaceList" id="list-spaces" class="list-spaces" data-bind="visible: spaceList().length > 0">
             <li data-bind= "text: name, click: $root.itemClick"></li>
           </ul>
         </div>

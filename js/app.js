@@ -228,6 +228,7 @@ function googleSuccess() {
       animation: google.maps.Animation.DROP,
       id: i
     });
+    // Bounce effect on marker
     var toggleBounce = function(marker, infowindow) {
       if (marker.getAnimation() !== null) {
         marker.setAnimation(null);
@@ -272,23 +273,21 @@ function googleSuccess() {
   }
 
   //Creating Space object
-  var Space = function (data, id) {
+  var Space = function (data, id, map) {
     this.name = ko.observable(data.name);
     this.location = location;
     this.marker = marker;
     this.markerId = id;
-    this.filter = ko.observable('');
-    this.visible = ko.observable(true);
   }
 
 
   var ViewModel = function () {
     var self = this;
-    self.filter = ko.observable("");
+
+
 
     // Nav button needs to be fixed
     this.isNavClosed = ko.observable(false);
-
     this.navClick = function () {
       this.isNavClosed(!this.isNavClosed());
     };
@@ -297,30 +296,25 @@ function googleSuccess() {
     this.spaceList = ko.observableArray([]);
     initialSpaces.forEach(function(item, i){
       self.spaceList.push( new Space(item, i) );
-
     });
 
     // Creating click for the list item
     this.itemClick = function (item) {
       var markerId = item.markerId;
       google.maps.event.trigger(markers[markerId], 'click');
-
     }
 
     //Filtering the Coworking cafés list
-    self.spaceList = ko.computed(function(item) {
+    self.filter = ko.observable("");
+    this.spaceList = ko.computed(function(item) {
       var q = self.filter().toLowerCase();
         return ko.utils.arrayFilter(self.spaceList(), function(item) {
-        console.log(item);
-          if (item.name().toLowerCase().indexOf(q) > -1) {
-            if (item.marker) item.marker.setVisible(true);
-              return true;
-              } else {
-                  item.marker.setVisible(false);
-                return false;
-              }
-            });
-    }, self);
+          var match = item.name().toLowerCase().indexOf(q) >= 0;
+          item.marker.setVisible(match);
+          return match;
+        });
+    });
+
   };
 
 
