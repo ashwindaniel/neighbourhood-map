@@ -310,7 +310,8 @@ function googleSuccess() {
       var q = self.filter().toLowerCase();
         return ko.utils.arrayFilter(self.spaceList(), function(item) {
           var match = item.name().toLowerCase().indexOf(q) >= 0;
-          item.marker.setVisible(match);
+          var markerId = item.markerId;
+          markers[markerId].setVisible(match);
           return match;
         });
     });
