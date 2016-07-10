@@ -21,7 +21,7 @@
 
 <body>
   <header>
-    <h1><i id="nav-button" class="nav-button fa fa-lg fa-toggle-on" data-bind="click: navClick, css: {'fa-toggle-off': isNavClosed}"></i>Café & Cowork in Paris</h1>
+    <h1><i id="nav-button" class="nav-button fa fa-lg fa-arrow-circle-up" data-bind="click: navClick, css: {'fa-arrow-circle-down': isNavClosed}"></i>Café & Cowork in Paris</h1>
   </header>
 
   <div id ="container" class="container">
@@ -35,7 +35,7 @@
         <div id="filter" class="filter">
           <div>Filter results:
             <form id="filter-form" class="filter-form">
-              <input data-bind="textInput: filter, valueUpdate:'afterkeydown'" autocomplete="on" id="filter-input" class="filter-input" placeholder="Search from the list" >
+              <input data-bind="textInput: filter, valueUpdate:'afterkeydown'" autocomplete="off" id="filter-input" class="filter-input" placeholder="Search from the list" >
               <button type="submit">Clear</button>
             </form>
           </div>
@@ -43,7 +43,7 @@
 
         <div id="list" class="list">
           <h2>Coworking cafés</h2>
-          <ul data-bind="foreach: spaceList" id="list-spaces" class="list-spaces" data-bind="visible: spaceList().length > 0">
+          <ul data-bind="foreach: filteredSpaceList" id="list-spaces" class="list-spaces" data-bind="visible: filteredSpaceList().length > 0">
             <li data-bind= "text: name, click: $root.itemClick"></li>
           </ul>
         </div>

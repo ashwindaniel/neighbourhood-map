@@ -245,7 +245,8 @@ function googleSuccess() {
     bounds.extend(marker.position);
 
     // Create an onclick event to open an infowindow and bounce the marker at each marker
-    marker.addListener('click', function() {
+    marker.addListener('click', function(e, i) {
+      map.panTo(this.position);
       populateInfoWindow(this, largeInfoWindow);
       toggleBounce(this, largeInfoWindow);
     });
@@ -286,7 +287,7 @@ function googleSuccess() {
 
 
 
-    // Nav button needs to be fixed
+    // Nav button control
     this.isNavClosed = ko.observable(false);
     this.navClick = function () {
       this.isNavClosed(!this.isNavClosed());
@@ -295,7 +296,7 @@ function googleSuccess() {
     // Creating list elements from the spaceList
     this.spaceList = ko.observableArray([]);
     initialSpaces.forEach(function(item, i){
-      self.spaceList.push( new Space(item, i) );
+      self.spaceList.push(new Space(item, i));
     });
 
     // Creating click for the list item
@@ -306,14 +307,15 @@ function googleSuccess() {
 
     //Filtering the Coworking cafés list
     self.filter = ko.observable("");
-    this.spaceList = ko.computed(function(item) {
+    this.filteredSpaceList = ko.computed(function(item) {
       var q = self.filter().toLowerCase();
-        return ko.utils.arrayFilter(self.spaceList(), function(item) {
-          var match = item.name().toLowerCase().indexOf(q) >= 0;
-          var markerId = item.markerId;
-          markers[markerId].setVisible(match);
-          return match;
+      return ko.utils.arrayFilter(self.spaceList(), function(item) {
+        var match = item.name().toLowerCase().indexOf(q) >= 0;
+        var markerId = item.markerId;
+        markers[markerId].setVisible(match);
+        return match;
         });
+
     });
 
   };
