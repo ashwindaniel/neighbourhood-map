@@ -183,7 +183,7 @@ function googleSuccess() {
     }
   ]
 
-  map = new google.maps.Map(document.getElementById('map'), {
+  var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 48.8676305, lng: 2.3495396},
     zoom: 13,
     styles: styles,
@@ -199,6 +199,8 @@ function googleSuccess() {
   });
 
   var bounds = new google.maps.LatLngBounds();
+
+
 
   //Set custom map marker
 
@@ -245,7 +247,7 @@ function googleSuccess() {
     bounds.extend(marker.position);
 
     // Create an onclick event to open an infowindow and bounce the marker at each marker
-    marker.addListener('click', function(e, i) {
+    marker.addListener('click', function(e) {
       map.panTo(this.position);
       populateInfoWindow(this, largeInfoWindow);
       toggleBounce(this, largeInfoWindow);
@@ -260,7 +262,6 @@ function googleSuccess() {
 
   function populateInfoWindow(marker, infowindow) {
     // Check that infowindow is not already opened for this marker
-
     if (infowindow.marker = marker) {
       infowindow.marker = marker;
       infowindow.setContent('<div>' + marker.title + '</div>');
@@ -269,8 +270,12 @@ function googleSuccess() {
       infowindow.addListener('closeclick', function() {
         infowindow.close();
       });
+      map.addListener('click', function(){
+        infowindow.close(largeInfoWindow);
+      })
 
     }
+
   }
 
   //Creating Space object
@@ -279,12 +284,12 @@ function googleSuccess() {
     this.location = location;
     this.marker = marker;
     this.markerId = id;
+    this.infowindow = largeInfoWindow;
   }
 
 
   var ViewModel = function () {
     var self = this;
-
 
 
     // Nav button control
@@ -305,7 +310,7 @@ function googleSuccess() {
       google.maps.event.trigger(markers[markerId], 'click');
     }
 
-    //Filtering the Coworking cafés list
+    // Filtering the Coworking cafés list
     self.filter = ko.observable("");
     this.filteredSpaceList = ko.computed(function(item) {
       var q = self.filter().toLowerCase();
@@ -315,9 +320,7 @@ function googleSuccess() {
         markers[markerId].setVisible(match);
         return match;
         });
-
     });
-
   };
 
 
