@@ -2,7 +2,6 @@
 be shown to the user.*/
 
 var initialSpaces = [
-
 {
   name: 'Anticafé Beaubourg',
   address: '79 Rue Quincampoix, 75003 Paris',
@@ -207,10 +206,7 @@ function googleSuccess() {
 
   var bounds = new google.maps.LatLngBounds();
 
-
-
   //Set custom map marker
-
   var image = {
     url: 'img/32x32.png',
     // This marker is 32 pixels wide by 32 pixels high.
@@ -280,9 +276,7 @@ function googleSuccess() {
       map.addListener('click', function(){
         infowindow.close(largeInfoWindow);
       })
-
     }
-
   }
 
   //Creating Space object
@@ -294,10 +288,8 @@ function googleSuccess() {
     this.infowindow = largeInfoWindow;
   }
 
-
   var ViewModel = function () {
     var self = this;
-
 
     // Nav button control
     this.isNavClosed = ko.observable(false);
@@ -329,7 +321,6 @@ function googleSuccess() {
         });
     });
   };
-
 
  // Activates knockout.js
 ko.applyBindings(new ViewModel());
