@@ -4,7 +4,7 @@ This single page application shows a map of coworking cafés in Paris. This app 
 ## Libraries, frameworks and APIs used
 1. Knockout JS
 2. Google Maps
-3. Yelp
+3. Foursquare
 4. Fontawesome
 5. JQuery
 

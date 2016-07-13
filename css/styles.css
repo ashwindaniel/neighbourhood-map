@@ -90,8 +90,8 @@ button li:hover {
   height: 100%;
 }
 
-.fa-toggle-on,
-.fa-toggle-off {
+.fa-lg.fa-arrow-circle-up,
+.fa-lg.fa-arrow-circle-down {
   margin: 5px;
   padding: 10px;
 }
