@@ -3,121 +3,76 @@ be shown to the user.*/
 
 var initialSpaces = [
 {
-  name: 'Anticafé Beaubourg',
-  address: '79 Rue Quincampoix, 75003 Paris',
-  fee: '5 €/hour, 24 €/day',
-  location: {lat: 48.862592, lng: 2.3512},
-  url: 'http://www.anticafe.eu/beaubourg/',
-  type: 'Co-working café',
-  info: 'For 4-15 persons possibility to reserve a table or part of Anticafé any time except between 1pm and 6pm.'
+  name: "L'Anticafé Louvre",
+  location: {lat: 48.864176597929635, lng: 2.336246967315674},
+  fs_id: '5318c03b498e5ea5cf57b72d',
+  type: 'Co-working café'
 },
 {
-  name: 'Anticafé Louvre',
-  address: '10 Rue de Richelieu, 75001 Paris',
-  fee: '5 €/hour, 24 €/day',
-  location: {lat: 48.8641804, lng: 2.3362479},
-  url: 'http://www.anticafe.eu/louvre/',
-  type: 'Co-working café',
-  info: 'For more than four persons possibility to reserve a table or part of Anticafé any time except between 1pm and 6pm.'
-},
-{
-  name: 'Cool and Workers',
-  address: '30-34 Rue du Chemin Vert, 75011 Paris',
-  fee: '4 €/hour, 20 €/day',
-  location: {lat: 48.8580496, lng: 2.3733548},
-  url: 'http://www.coolandworkers.com',
-  type: 'Co-working café',
-  info: 'Meeting rooms.'
+  name: "L'Anticafé Olympiades",
+  location: {lat: 48.8256604845249, lng: 2.3664236420115032},
+  fs_id: '544f9a0b498ece3f8d42959c',
+  type: 'Co-working café'
 },
 {
   name: 'Coutume Instituutti',
-  address: '60 rue des Écoles ou 33 rue Sommerard, 75005 Paris',
-  fee: "Your coffee's worth",
-  location: {lat: 48.8502448, lng: 2.3433506},
-  url: 'http://coutumecafe.com/s/3231/Coutume+Instituutti',
-  type: 'Café with free wi-fi',
-  info: ''
+  location: {lat: 48.850272389609614, lng: 2.3434848718922203},
+  fs_id: '526282fa11d201a787f28e5d',
+  type: 'Café with free wi-fi'
 },
 {
   name: 'Coworkshop',
-  address: '29 rue des Vinaigriers, 75010 Paris',
-  fee: '4 €/hour',
-  location: {lat: 48.8732358, lng: 2.3630581},
-  url: 'http://www.coworkshop.fr/en/home-en/',
-  type: 'Co-working space',
-  info: ''
+  location: {lat: 48.873131, lng: 2.362437},
+  fs_id: '5392e19d498eae4bad78b309',
+  type: 'Co-working space'
 },
 {
   name: 'Draft - Les Ateliers Connectés',
-  address: '12 Esplanade Nathalie Sarraute, 75018 Paris',
-  fee: 'Co-working: from 8€ up',
-  location: {lat: 48.8879932, lng: 2.3627147},
-  url: 'http://www.ateliers-draft.com',
-  type: 'Co-working space and atelier',
-  info: ''
+  location: {lat: 48.88802088292197, lng: 2.362205516926689},
+  fs_id: '537bb0fd498e043d3810ad17',
+  type: 'Co-working space'
 },
 {
   name: 'Hubsy',
-  address: '41 Rue Réaumur, 75003 Paris',
-  fee: '5 € /first hour then 2 € / every half-an-hour, 20 € /day',
-  location: {lat: 48.8657378, lng: 2.3541439},
-  url: 'http://www.hubsy.fr',
-  type: 'Co-working café',
-  info: 'Meeting rooms for 6 persons'
-},
-{
-  name: "L'Archipel",
-  address: '26 Rue de Saint-Pétersbourg, 75008 Paris',
-  fee: 'Monthly subscription only: from 170 to H330HT €/month',
-  location: {lat: 48.8817333, lng: 2.3256582},
-  url: 'http://www.larchipel.paris/coworking/',
-  type: 'Co-working space',
-  info: 'Privatization of space is possible according to your needs.'
+  location: {lat: 48.86593774237275, lng: 2.3542838398926906},
+  fs_id: '55e80d34498e4e52001fe3b9',
+  type: 'Co-working café'
 },
 {
   name: 'Le Laptop',
-  address: '6 rue Arthur Rozier, 75009 Paris',
-  fee: '25€ / day',
-  location: {lat: 48.877313, lng: 2.3911639},
-  url: 'http://www.lelaptop.com',
-  type: 'Co-working space',
-  info: 'Meeting rooms for four, six or 15 persons.'
+  location: {lat: 48.877355, lng: 2.391246},
+  fs_id: '4f2bbe9fe4b05a27b99fa265',
+  type: 'Co-working space'
+},
+{
+  name: 'Le Tank by Spintank',
+  location: {lat: 48.855174511625705, lng: 2.3749271844045627},
+  fs_id: '5410960d498e0fbb967291f9',
+  type: 'Co-working space'
 },
 {
   name: 'Le 10h10 Coworking Café',
-  address: '19 Rue de Cléry, 75002 Paris',
-  fee: '4.5 €/hour, 20 €/day',
-  location: {lat: 48.8680272, lng: 2.3459806},
-  url: 'http://www.le10h10.com/fr/coworking-cafe/',
-  type: 'Co-working café',
-  info: 'Three meeting room options, from 6 to 50 persons'
+  location: {lat: 48.86792155932635, lng: 2.3458970554245333},
+  fs_id: '553f768a498ea8392e2eb0dc',
+  type: 'Co-working café'
 },
 {
   name: 'Mutinerie',
-  address: '29 rue des Meaux, 75019, Paris',
-  fee: '25€ HT/ day',
   location: {lat: 48.8820919, lng: 2.3546844},
-  url: 'http://www.mutinerie.org/',
-  type: 'Co-working space',
-  info: ''
+  fs_id: '4f043d3029c2b9a3edd1c7f9',
+  type: 'Co-working space'
 },
 {
   name: 'Nuage Café',
-  address: '14 Rue des Carmes, 75005 Paris',
-  fee: '4 €/hour, 16 €/day',
-  location: {lat: 48.8492626, lng: 2.3473711},
-  url: 'https://nuagecafe.fr',
-  type: 'Co-working café',
-  info: 'Possibility to privatize the space and meeting room for up to six persons'
+  location: {lat: 48.849188518347134, lng: 2.3476003257651215},
+  fs_id: '565071c3498e84bcd5ea4e34',
+  type: 'Co-working café'
 },
 {
   name: 'NUMA Cowork',
-  address: '39 Rue du Caire, 75002 Paris',
-  fee: 'free',
-  location: {lat: 48.8676305, lng: 2.3495396},
-  url: 'https://paris.numa.co/Cowork-Accueil',
-  type: 'Co-working space',
-  info: 'Numa Cowork space can be hired for events.'
+  location: {lat: 48.867661509436516, lng: 2.349806826122033},
+  fs_id: '52663aa3498ebda21a68cb6e',
+  type: 'Co-working space'
 }
 ]
 
@@ -259,15 +214,35 @@ function googleSuccess() {
 
   map.fitBounds(bounds);
 
-  /* This function populates the infowindow when the marker is clicked.
-  We'll only allow one infowindow which will open at the marker
-  clicked, and populate based on that markers position*/
+//Foursquare API Url parameters
+  var fsBaseUrl = 'https://api.foursquare.com/v2/';
+  var fsEndpoint = 'venues/explore?';
+  var fsClient_id = 'client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0';
+  var fsClient_secret = '&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5';
+  var fsParams = '&near=Paris+Notre+Dame'
+  var fsLimit = '&limit=20';
+  var fsVersion = '&v=20162007';
+  var fsVenuePhotos = '&venuePhotos=1';
+  var fsRadius = '&radius=2000';
 
+
+//   function getContent(data) {
+//     var FourSquareUrl = 'https://api.foursquare.com/v2/venues/explore?near=Paris&limit=50&radius=10000&client_id=PSGX1RXDWKJ2P0RV141E4BWJZAORZR12BLJW50GI5HISG5LE&client_secret=SCJMSUH3MU2U0AMATJN1ML0T14Z5MHMO00UJRV2TH52FVTFJ&v=20161016&query=coworking&cafes';
+//     var contentString = ...
+//     // build the content string
+//     return contentString;
+// }
+
+
+  /* This function populates the infowindow when the marker is clicked.
+    We'll only allow one infowindow which will open at the marker
+    clicked, and populate based on that markers position*/
   function populateInfoWindow(marker, infowindow) {
+    var content = '<div>' + marker.title + '</div>'+'<p>' + marker.position + '</p>'
     // Check that infowindow is not already opened for this marker
     if (infowindow.marker = marker) {
       infowindow.marker = marker;
-      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.setContent(content);
       infowindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed
       infowindow.addListener('closeclick', function() {
