@@ -217,8 +217,7 @@ function googleSuccess() {
 //Foursquare API Url parameters
   var fsBaseUrl = 'https://api.foursquare.com/v2/';
   var fsEndpoint = 'venues/explore?';
-  var fsClient_id = 'client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0';
-  var fsClient_secret = '&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5';
+
   var fsParams = '&near=Paris+Notre+Dame'
   var fsLimit = '&limit=20';
   var fsVersion = '&v=20162007';
