@@ -27,6 +27,12 @@ var initialSpaces = [
   type: 'Co-working space'
 },
 {
+  name: 'Craft',
+  location: {lat: 48.873186908994434, lng: 2.3631128669444834},
+  fs_id: '50420756e4b0047a41a495fc',
+  type: 'Coffee Shop'
+},
+{
   name: 'Draft - Les Ateliers Connectés',
   location: {lat: 48.88802088292197, lng: 2.362205516926689},
   fs_id: '537bb0fd498e043d3810ad17',
@@ -156,7 +162,7 @@ function googleSuccess() {
   });
 
   var largeInfoWindow = new google.maps.InfoWindow({
-    maxWidth: 200
+    maxWidth: 240
   });
 
   var bounds = new google.maps.LatLngBounds();
@@ -212,32 +218,48 @@ function googleSuccess() {
     });
   }
 
-  map.fitBounds(bounds);
-
-//Foursquare API Url parameters
-  var fsBaseUrl = 'https://api.foursquare.com/v2/';
-  var fsEndpoint = 'venues/explore?';
-
-  var fsParams = '&near=Paris+Notre+Dame'
-  var fsLimit = '&limit=20';
-  var fsVersion = '&v=20162007';
-  var fsVenuePhotos = '&venuePhotos=1';
-  var fsRadius = '&radius=2000';
+  // Recenter map upon window resize
+  window.onresize = function () {
+    map.fitBounds(bounds);
+  };
 
 
-//   function getContent(data) {
-//     var FourSquareUrl = 'https://api.foursquare.com/v2/venues/explore?near=Paris&limit=50&radius=10000&client_id=PSGX1RXDWKJ2P0RV141E4BWJZAORZR12BLJW50GI5HISG5LE&client_secret=SCJMSUH3MU2U0AMATJN1ML0T14Z5MHMO00UJRV2TH52FVTFJ&v=20161016&query=coworking&cafes';
-//     var contentString = ...
-//     // build the content string
-//     return contentString;
+    // function getContent(data) {
+//   var contentString;
+//   //build the content string
+//   //return contentString;
 // }
+// //Foursquare API Url parameters
+   this.BaseUrl = 'https://api.foursquare.com/v2/venues/'
+   this.venueId = '565071c3498e84bcd5ea4e34' + '/?';
+   this.fsClient_id = 'client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0';
+   this.fsClient_secret = '&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5';
+   this.fsVersion = '&v=20161507';
+//   // this.fsParams = '&near=Paris&sortByDistance=1&limit=50'
+//   // this.fsVenuePhotos = '&venuePhotos=1';
+//   // this.fsRadius = '&radius=5000';
+//   // this.fsquery = ['&query=coworking+cafe', '&query=coworking+space']
+   this.foursquareUrl = this.BaseUrl + this.venueId + this.fsClient_id + this.fsClient_secret + this.fsVersion;
+
+     $.ajax({
+       url: this.foursquareUrl,
+       dataType: 'json',
+       async: true,
+       success: function(data) {
+         //this.tips = data.response;
+         console.log(data.response);
+     }
+     })
+
 
 
   /* This function populates the infowindow when the marker is clicked.
     We'll only allow one infowindow which will open at the marker
     clicked, and populate based on that markers position*/
   function populateInfoWindow(marker, infowindow) {
-    var content = '<div>' + marker.title + '</div>'+'<p>' + marker.position + '</p>'
+    var content = '<div>' + marker.title + '</div>'+
+    '<div>' +'<img src = "http://dummyimage.com" alt="venue image from FS">' +'</div>' +
+    '<p>' + 'venue description comes here from Foursquare' + '</p>'
     // Check that infowindow is not already opened for this marker
     if (infowindow.marker = marker) {
       infowindow.marker = marker;
@@ -299,3 +321,4 @@ function googleSuccess() {
  // Activates knockout.js
 ko.applyBindings(new ViewModel());
 }
+
