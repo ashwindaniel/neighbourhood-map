@@ -81,8 +81,14 @@ var initialSpaces = [
   type: 'Co-working space'
 }
 ]
+// Foursquare API Url parameters in global scope
+var BaseUrl = 'https://api.foursquare.com/v2/venues/',
+    fsClient_id = 'client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0',
+    fsClient_secret = '&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5',
+    fsVersion = '&v=20161507';
 
-//Create global variables to use in google maps
+
+// Create global variables to use in google maps
 var map;
 
 var mapTimeout = setTimeout(function(){
@@ -223,40 +229,20 @@ function googleSuccess() {
     map.fitBounds(bounds);
   };
 
+  //Assign content to the infowindow
+  function getInfoWindowContent(space) {
+  var picture = space.fs_picture_url,
+      description = space.description,
+      content = '<div>' + picture + '</div>' +
+      '<p>' + description + '</p>';
 
-    // function getContent(data) {
-//   var contentString;
-//   //build the content string
-//   //return contentString;
-// }
-// //Foursquare API Url parameters
-   this.BaseUrl = 'https://api.foursquare.com/v2/venues/'
-   this.venueId = '565071c3498e84bcd5ea4e34' + '/?';
-   this.fsClient_id = 'client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0';
-   this.fsClient_secret = '&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5';
-   this.fsVersion = '&v=20161507';
-//   // this.fsParams = '&near=Paris&sortByDistance=1&limit=50'
-//   // this.fsVenuePhotos = '&venuePhotos=1';
-//   // this.fsRadius = '&radius=5000';
-//   // this.fsquery = ['&query=coworking+cafe', '&query=coworking+space']
-   this.foursquareUrl = this.BaseUrl + this.venueId + this.fsClient_id + this.fsClient_secret + this.fsVersion;
-
-     $.ajax({
-       url: this.foursquareUrl,
-       dataType: 'json',
-       async: true,
-       success: function(data) {
-         //this.tips = data.response;
-         console.log(data.response);
-     }
-     })
-
-
+  return content;
+}
 
   /* This function populates the infowindow when the marker is clicked.
     We'll only allow one infowindow which will open at the marker
     clicked, and populate based on that markers position*/
-  function populateInfoWindow(marker, infowindow) {
+  function populateInfoWindow(marker, infowindow, space) {
     var content = '<div>' + marker.title + '</div>'+
     '<div>' +'<img src = "http://dummyimage.com" alt="venue image from FS">' +'</div>' +
     '<p>' + 'venue description comes here from Foursquare' + '</p>'
@@ -278,10 +264,12 @@ function googleSuccess() {
   //Creating Space object
   var Space = function (data, id, map) {
     this.name = ko.observable(data.name);
-    this.location = location;
+    this.location = data.location;
     this.marker = marker;
     this.markerId = id;
     this.infowindow = largeInfoWindow;
+    this.fs_id = data.fs_id;
+    this.description = "";
   }
 
   var ViewModel = function () {
@@ -298,6 +286,41 @@ function googleSuccess() {
     initialSpaces.forEach(function(item, i){
       self.spaceList.push(new Space(item, i));
     });
+
+    //Foursquare API request
+    self.getFoursquareData = ko.computed(function(){
+      self.spaceList().forEach(function(space) {
+
+        // Set initail variables to build the correct URL for each space
+        var  venueId = space.fs_id + '/?';
+        var foursquareUrl = BaseUrl + venueId + fsClient_id + fsClient_secret + fsVersion;
+
+      //console.log('fs request');
+        // AJAX call to Foursquare
+        $.ajax({
+          type: 'GET',
+          url: foursquareUrl,
+          dataType: 'json',
+          async: true,
+          cache: false,
+        success: function(data) {
+                //for (var i = 0; i < 0; i++) {
+                  //push description to description array
+                  //space.description.push()
+                console.log(data.response);
+
+
+        var response = data.response;
+        var venue = response.venue ? data.venue : "";
+
+        space.description = response.venue.description;
+        //console.log('fs response');
+        }
+      });
+    });
+  });
+
+    console.log('Hello Tarja!');
 
     // Creating click for the list item
     this.itemClick = function (item) {
