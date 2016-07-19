@@ -83,20 +83,19 @@ var initialSpaces = [
 ]
 // Foursquare API Url parameters in global scope
 var BaseUrl = 'https://api.foursquare.com/v2/venues/',
-    fsClient_id = 'client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0',
-    fsClient_secret = '&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5',
+
     fsVersion = '&v=20161507';
 
 
 // Create global variables to use in google maps
 var map;
-
 var mapTimeout = setTimeout(function(){
     alert("sorry, problems loading map...");
 }, 5000);
-
 // Create a new blank array for all the listing markers
 var markers = [];
+
+
 
 //initializeMap() is called when page is loaded
 function googleSuccess() {
@@ -295,7 +294,7 @@ function googleSuccess() {
         var  venueId = space.fs_id + '/?';
         var foursquareUrl = BaseUrl + venueId + fsClient_id + fsClient_secret + fsVersion;
 
-      //console.log('fs request');
+      console.log('fs request');
         // AJAX call to Foursquare
         $.ajax({
           type: 'GET',
@@ -309,12 +308,22 @@ function googleSuccess() {
                   //space.description.push()
                 console.log(data.response);
 
+                //console.log(data.response.venue['description']);
 
-        var response = data.response;
-        var venue = response.venue ? data.venue : "";
+                //console.log(data.response.venue.bestPhoto['prefix']);
+                //console.log(data.response.venue.bestPhoto['suffix']);
 
-        space.description = response.venue.description;
-        //console.log('fs response');
+
+
+
+          var response = data.response;
+          var venue = response.venue ? data.venue : '';
+              space.description = response.venue["description"];
+              space.photoUrl = data.response.venue.bestPhoto['prefix'] + 'height200' + data.response.venue.bestPhoto['suffix'];
+          console.log('fs response');
+          console.log(space.photoUrl);
+          console.log(space.description);
+
         }
       });
     });
