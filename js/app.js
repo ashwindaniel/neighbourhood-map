@@ -83,24 +83,20 @@ var initialSpaces = [
 ]
 // Foursquare API Url parameters in global scope
 var BaseUrl = 'https://api.foursquare.com/v2/venues/',
-
+    fsClient_id = 'client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0',
+    fsClient_secret = '&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5',
     fsVersion = '&v=20161507';
 
 
 // Create global variables to use in google maps
 var map;
-var mapTimeout = setTimeout(function(){
-    alert("sorry, problems loading map...");
-}, 5000);
+
 // Create a new blank array for all the listing markers
 var markers = [];
-
-
 
 //initializeMap() is called when page is loaded
 function googleSuccess() {
   'use strict';
-  clearTimeout(mapTimeout);
 
   //Create styles arrays to use with the map
   var styles = [
@@ -212,6 +208,7 @@ function googleSuccess() {
     };
     // Push the marker to array of markers
     markers.push(marker);
+
     // Extend the boundaries of the map for each marker
     bounds.extend(marker.position);
 
@@ -228,35 +225,37 @@ function googleSuccess() {
     map.fitBounds(bounds);
   };
 
-  //Assign content to the infowindow
-  function getInfoWindowContent(space) {
-  var picture = space.fs_picture_url,
-      description = space.description,
-      content = '<div>' + picture + '</div>' +
-      '<p>' + description + '</p>';
 
-  return content;
-}
+  // //Assign content to the infowindow
+  // function getInfoWindowContent(space) {
+  // var photoUrl = fs_photoUrl,
+  //     description = fs_description,
+  //     content = '<div>' + marker.title + '</div>'+
+  //     '<div id="description"></div>';
+
+  // return content;
+  // }
 
   /* This function populates the infowindow when the marker is clicked.
     We'll only allow one infowindow which will open at the marker
     clicked, and populate based on that markers position*/
-  function populateInfoWindow(marker, infowindow, space) {
-    var content = '<div>' + marker.title + '</div>'+
-    '<div>' +'<img src = "http://dummyimage.com" alt="venue image from FS">' +'</div>' +
-    '<p>' + 'venue description comes here from Foursquare' + '</p>'
+  function populateInfoWindow(marker, infowindow) {
+
     // Check that infowindow is not already opened for this marker
     if (infowindow.marker = marker) {
       infowindow.marker = marker;
-      infowindow.setContent(content);
+
+      infowindow.setContent('<b>' + marker.title + '</b><br>'+
+      "<div style = 'width:240px;min-height:100px'>" + "<div id='description'></div>" + "</div>");
       infowindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed
       infowindow.addListener('closeclick', function() {
         infowindow.close();
       });
+
       map.addListener('click', function(){
         infowindow.close(largeInfoWindow);
-      })
+      });
     }
   }
 
@@ -266,9 +265,10 @@ function googleSuccess() {
     this.location = data.location;
     this.marker = marker;
     this.markerId = id;
-    this.infowindow = largeInfoWindow;
+    //this.infowindow = largeInfoWindow;
     this.fs_id = data.fs_id;
-    this.description = "";
+    this.shortUrl = '';
+    this.photoUrl = '';
   }
 
   var ViewModel = function () {
@@ -288,13 +288,14 @@ function googleSuccess() {
 
     //Foursquare API request
     self.getFoursquareData = ko.computed(function(){
+
       self.spaceList().forEach(function(space) {
 
         // Set initail variables to build the correct URL for each space
         var  venueId = space.fs_id + '/?';
         var foursquareUrl = BaseUrl + venueId + fsClient_id + fsClient_secret + fsVersion;
 
-      console.log('fs request');
+      //console.log('fs request');
         // AJAX call to Foursquare
         $.ajax({
           type: 'GET',
@@ -303,37 +304,39 @@ function googleSuccess() {
           async: true,
           cache: false,
         success: function(data) {
-                //for (var i = 0; i < 0; i++) {
-                  //push description to description array
-                  //space.description.push()
-                console.log(data.response);
 
+                //console.log(data.response);
                 //console.log(data.response.venue['description']);
-
                 //console.log(data.response.venue.bestPhoto['prefix']);
                 //console.log(data.response.venue.bestPhoto['suffix']);
-
-
-
-
+          //var windowContent = $('#fs_data');
+          var windowContent = $('#description');
           var response = data.response;
           var venue = response.venue ? data.venue : '';
-              space.description = response.venue["description"];
-              space.photoUrl = data.response.venue.bestPhoto['prefix'] + 'height200' + data.response.venue.bestPhoto['suffix'];
-          console.log('fs response');
-          console.log(space.photoUrl);
-          console.log(space.description);
 
+              space.shortUrl = response.venue["shortUrl"];
+              space.photoUrl = data.response.venue.bestPhoto['prefix'] + 'height200' + data.response.venue.bestPhoto['suffix'];
+          var contentString = '<img src="' + space.photoUrl +
+              '" alt="Foursquare photo">' +
+              '<a href="' + space.shortUrl + '">' + 'Visit Foursquare' + '</a>';
+
+
+          windowContent.append(contentString);
+
+          //console.log('fs response');
+          //console.log(space.photoUrl);
+          console.log(space.shortUrl);
+          console.log(contentString);
         }
       });
     });
   });
 
-    console.log('Hello Tarja!');
+    //console.log('Hello Tarja!');
 
     // Creating click for the list item
-    this.itemClick = function (item) {
-      var markerId = item.markerId;
+    this.itemClick = function (space) {
+      var markerId = space.markerId;
       google.maps.event.trigger(markers[markerId], 'click');
     }
 
