@@ -127,6 +127,15 @@ button li:hover {
   z-index: 0;
 }
 
+.map-error {
+  max-width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: #f7f7f7;
+  color:#254441;
+
+}
 .filter {
   background: #f7f7f7;
 }
