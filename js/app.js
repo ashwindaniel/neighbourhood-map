@@ -81,10 +81,11 @@ var initialSpaces = [
   type: 'Co-working space'
 }
 ]
+
 // Foursquare API Url parameters in global scope
 var BaseUrl = 'https://api.foursquare.com/v2/venues/',
-    fsClient_id = 'client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0',
-    fsClient_secret = '&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5',
+    fsClient_id = 'client_id=',
+    fsClient_secret = '&client_secret=',
     fsVersion = '&v=20161507';
 
 
@@ -94,12 +95,28 @@ var map;
 // Create a new blank array for all the listing markers
 var markers = [];
 
-//initializeMap() is called when page is loaded
+//googleSuccess() is called when page is loaded
 function googleSuccess() {
   'use strict';
+  //Google map elements - set custom map marker
+  var image = {
+    url: 'img/32x32.png',
+    // This marker is 32 pixels wide by 32 pixels high.
+    size: new google.maps.Size(32, 32),
+    // The origin for this image is (0, 0).
+    origin: new google.maps.Point(0, 0),
+    // The anchor for this image is the base of the flagpole at (0, 32).
+    anchor: new google.maps.Point(0, 32)
+  };
 
-  //Create styles arrays to use with the map
-  var styles = [
+  //Google map elements - set map options
+  var mapOptions = {
+    center: {
+      lat: 48.8676305, 
+      lng: 2.3495396
+    },
+    zoom: 13,
+    styles: [
     {
       "featureType": "landscape",
       "stylers": [
@@ -148,38 +165,28 @@ function googleSuccess() {
         {"lightness": 11.200000000000017},
         {"gamma": 1}
       ]
-    }
-  ]
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 48.8676305, lng: 2.3495396},
-    zoom: 13,
-    styles: styles,
+    }],
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     mapTypeControl: false,
     mapTypeControlOptions: {
     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     }
-  });
+  };
+  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
   var largeInfoWindow = new google.maps.InfoWindow({
-    maxWidth: 240
+    maxWidth: 200
   });
 
   var bounds = new google.maps.LatLngBounds();
 
-  //Set custom map marker
-  var image = {
-    url: 'img/32x32.png',
-    // This marker is 32 pixels wide by 32 pixels high.
-    size: new google.maps.Size(32, 32),
-    // The origin for this image is (0, 0).
-    origin: new google.maps.Point(0, 0),
-    // The anchor for this image is the base of the flagpole at (0, 32).
-    anchor: new google.maps.Point(0, 32)
+  // Recenter map upon window resize
+  window.onresize = function () {
+    map.fitBounds(bounds);
   };
 
-  /* The following group uses location array to create an array of
+
+  /* The following group uses location to create an array of
   markers to initialize*/
   var i;
   for (var i = 0; i < initialSpaces.length; i++) {
@@ -220,21 +227,15 @@ function googleSuccess() {
     });
   }
 
-  // Recenter map upon window resize
-  window.onresize = function () {
-    map.fitBounds(bounds);
-  };
+  //Assign content to the infowindow
+  function getInfoWindowContent(space) {
+  var photoUrl = fs_photoUrl,
+      description = fs_description,
+      content = '<div>' + marker.title + '</div>'+ fs_photoUrl
+      '<div id="description"></div>';
 
-
-  // //Assign content to the infowindow
-  // function getInfoWindowContent(space) {
-  // var photoUrl = fs_photoUrl,
-  //     description = fs_description,
-  //     content = '<div>' + marker.title + '</div>'+
-  //     '<div id="description"></div>';
-
-  // return content;
-  // }
+  return content;
+  }
 
   /* This function populates the infowindow when the marker is clicked.
     We'll only allow one infowindow which will open at the marker
@@ -246,7 +247,7 @@ function googleSuccess() {
       infowindow.marker = marker;
 
       infowindow.setContent('<b>' + marker.title + '</b><br>'+
-      "<div style = 'width:240px;min-height:100px'>" + "<div id='description'></div>" + "</div>");
+      "<div style = 'width:240px;min-height:120px'>" + '<div class="description"></div>' + "</div>");
       infowindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed
       infowindow.addListener('closeclick', function() {
@@ -259,16 +260,20 @@ function googleSuccess() {
     }
   }
 
+
   //Creating Space object
   var Space = function (data, id, map) {
     this.name = ko.observable(data.name);
     this.location = data.location;
     this.marker = marker;
     this.markerId = id;
-    //this.infowindow = largeInfoWindow;
+    this.infowindow = largeInfoWindow;
     this.fs_id = data.fs_id;
     this.shortUrl = '';
     this.photoUrl = '';
+    //this.lat = '';
+    //this.lng = '';
+
   }
 
   var ViewModel = function () {
@@ -306,27 +311,29 @@ function googleSuccess() {
         success: function(data) {
 
                 //console.log(data.response);
-                //console.log(data.response.venue['description']);
+                //console.log(data.response.venue.location['lat']);
+                //console.log(data.response.venue.location['lng']);
                 //console.log(data.response.venue.bestPhoto['prefix']);
                 //console.log(data.response.venue.bestPhoto['suffix']);
           //var windowContent = $('#fs_data');
-          var windowContent = $('#description');
+          //var windowContent = $('#description');
           var response = data.response;
           var venue = response.venue ? data.venue : '';
 
               space.shortUrl = response.venue["shortUrl"];
-              space.photoUrl = data.response.venue.bestPhoto['prefix'] + 'height200' + data.response.venue.bestPhoto['suffix'];
+              space.photoUrl = response.venue.bestPhoto['prefix'] + 'height80' + response.venue.bestPhoto['suffix'];
+              //space.lat = response.venue.location['lat'];
+              //space.lng = response.venue.location['lng'];
+
           var contentString = '<img src="' + space.photoUrl +
               '" alt="Foursquare photo">' +
               '<a href="' + space.shortUrl + '">' + 'Visit Foursquare' + '</a>';
 
 
-          windowContent.append(contentString);
-
           //console.log('fs response');
           //console.log(space.photoUrl);
-          console.log(space.shortUrl);
-          console.log(contentString);
+          //console.log(space.shortUrl);
+          
         }
       });
     });
