@@ -175,7 +175,8 @@ function googleSuccess() {
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
   var largeInfoWindow = new google.maps.InfoWindow({
-    maxWidth: 150
+    maxWidth: 150,
+    content: ""
   });
 
   var bounds = new google.maps.LatLngBounds();
@@ -227,36 +228,21 @@ function googleSuccess() {
     });
   }
 
-  // //Assign content to the infowindow
-  // function getInfoWindowContent(space) {
-  // var photoUrl = fs_photoUrl,
-  //     shortUrl = fs_shortUrl,
-  //     content = '<h3>' + marker.title + '</h3>' +
-  //     "<div style = 'width:240px;min-height:120px'>" + '<div class="description"></div>' + 
-  //     "</div>" + '<img src="img/foursquare-150.png">';
-
-  // return content;
-  // console.log(content);
-  // }
-
   /* This function populates the infowindow when the marker is clicked.
     We'll only allow one infowindow which will open at the marker
     clicked, and populate based on that markers position*/
-  function populateInfoWindow(marker, infowindow) {
+  function populateInfoWindow(marker, infowindow, i) {
 
     // Check that infowindow is not already opened for this marker
     if (infowindow.marker = marker) {
       infowindow.marker = marker;
-
-      // infowindow.setContent('<h3>' + marker.title + '</h3>' +
-      // "<div style = 'width:240px;min-height:120px'>" + '<div class="description"></div>' + 
-      // "</div>" + '<br>' +'<img src="img/foursquare-150.png">');
       infowindow.open(map, marker);
+      
       // Make sure the marker property is cleared if the infowindow is closed
       infowindow.addListener('closeclick', function() {
         infowindow.close();
       });
-
+      
       map.addListener('click', function(){
         infowindow.close(largeInfoWindow);
       });
@@ -297,8 +283,8 @@ function googleSuccess() {
     //Foursquare API request
     self.getFoursquareData = ko.computed(function(){
       
-      self.spaceList().forEach(function(space, i, infoindow) {
-        var infoWindow = space.infoWindow;
+      self.spaceList().forEach(function(space) {
+        
         // Set initail variables to build the correct URL for each space
         var  venueId = space.fs_id + '/?';
         var foursquareUrl = BaseUrl + venueId + fsClient_id + fsClient_secret + fsVersion;
@@ -312,34 +298,29 @@ function googleSuccess() {
           async: true,
           cache: false,
         success: function(data) {
-
                 //console.log(data.response);
-                //console.log(data.response.venue.location['lat']);
-                //console.log(data.response.venue.location['lng']);
                 //console.log(data.response.venue.bestPhoto['prefix']);
                 //console.log(data.response.venue.bestPhoto['suffix']);
-          //var windowContent = $('#fs_data');
-          //var windowContent = $('#description');
           var response = data.response;
           var venue = response.venue ? data.venue : '';
-
               space.shortUrl = response.venue["shortUrl"];
-              space.photoUrl = response.venue.bestPhoto['prefix'] + 'height150' + response.venue.bestPhoto['suffix'];
-              //space.lat = response.venue.location['lat'];
-              //space.lng = response.venue.location['lng'];
-
-              
+              space.photoUrl = response.venue.bestPhoto['prefix'] + 'height150' + 
+              response.venue.bestPhoto['suffix'];  
+          //console.log(space.shortUrl);
+    
+          //How do I assign individual content for each infoWindow?          
+          
           var contentString = '<h3>' + marker.title + 
-          "</h3><br><div style='width:240px;min-height:120px'><img src=" + '"' + 
+          "</h3><br><div style='width:200px;min-height:120px'><img src=" + '"' + 
           space.photoUrl  + '"></div><div><a href="' + space.shortUrl 
           + '">More info in Foursquare</a><img src="img/foursquare-150.png">';
-
-          infoWindow.setContent(contentString);
-
           console.log(contentString);
-          //console.log(space.photoUrl);
-          //console.log(space.shortUrl);
-          
+
+          var infoWindow = space.infoWindow; 
+          infoWindow.setContent(contentString);
+        },
+        error: function(jqXHR, textStatus, errorThrown){ 
+          infoWindow.setContent("Oops, something went wrong. Please try again later.");
         }
       });
     });
