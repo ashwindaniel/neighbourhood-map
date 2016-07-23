@@ -84,8 +84,8 @@ var initialSpaces = [
 
 // Foursquare API Url parameters in global scope
 var BaseUrl = 'https://api.foursquare.com/v2/venues/',
-    fsClient_id = 'client_id=',
-    fsClient_secret = '&client_secret=',
+    fsClient_id = 'client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0',
+    fsClient_secret = '&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5',
     fsVersion = '&v=20161507';
 
 
@@ -175,7 +175,7 @@ function googleSuccess() {
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
   var largeInfoWindow = new google.maps.InfoWindow({
-    maxWidth: 200
+    maxWidth: 150
   });
 
   var bounds = new google.maps.LatLngBounds();
@@ -203,7 +203,7 @@ function googleSuccess() {
       id: i
     });
     // Bounce effect on marker
-    var toggleBounce = function(marker, infowindow) {
+    var toggleBounce = function(marker) {
       if (marker.getAnimation() !== null) {
         marker.setAnimation(null);
       } else {
@@ -227,15 +227,17 @@ function googleSuccess() {
     });
   }
 
-  //Assign content to the infowindow
-  function getInfoWindowContent(space) {
-  var photoUrl = fs_photoUrl,
-      description = fs_description,
-      content = '<div>' + marker.title + '</div>'+ fs_photoUrl
-      '<div id="description"></div>';
+  // //Assign content to the infowindow
+  // function getInfoWindowContent(space) {
+  // var photoUrl = fs_photoUrl,
+  //     shortUrl = fs_shortUrl,
+  //     content = '<h3>' + marker.title + '</h3>' +
+  //     "<div style = 'width:240px;min-height:120px'>" + '<div class="description"></div>' + 
+  //     "</div>" + '<img src="img/foursquare-150.png">';
 
-  return content;
-  }
+  // return content;
+  // console.log(content);
+  // }
 
   /* This function populates the infowindow when the marker is clicked.
     We'll only allow one infowindow which will open at the marker
@@ -246,8 +248,9 @@ function googleSuccess() {
     if (infowindow.marker = marker) {
       infowindow.marker = marker;
 
-      infowindow.setContent('<b>' + marker.title + '</b><br>'+
-      "<div style = 'width:240px;min-height:120px'>" + '<div class="description"></div>' + "</div>");
+      // infowindow.setContent('<h3>' + marker.title + '</h3>' +
+      // "<div style = 'width:240px;min-height:120px'>" + '<div class="description"></div>' + 
+      // "</div>" + '<br>' +'<img src="img/foursquare-150.png">');
       infowindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed
       infowindow.addListener('closeclick', function() {
@@ -262,12 +265,12 @@ function googleSuccess() {
 
 
   //Creating Space object
-  var Space = function (data, id, map) {
+  var Space = function (data, id, map, infowindow) {
     this.name = ko.observable(data.name);
     this.location = data.location;
     this.marker = marker;
     this.markerId = id;
-    this.infowindow = largeInfoWindow;
+    this.infoWindow = largeInfoWindow;
     this.fs_id = data.fs_id;
     this.shortUrl = '';
     this.photoUrl = '';
@@ -293,9 +296,9 @@ function googleSuccess() {
 
     //Foursquare API request
     self.getFoursquareData = ko.computed(function(){
-
-      self.spaceList().forEach(function(space) {
-
+      
+      self.spaceList().forEach(function(space, i, infoindow) {
+        var infoWindow = space.infoWindow;
         // Set initail variables to build the correct URL for each space
         var  venueId = space.fs_id + '/?';
         var foursquareUrl = BaseUrl + venueId + fsClient_id + fsClient_secret + fsVersion;
@@ -321,16 +324,19 @@ function googleSuccess() {
           var venue = response.venue ? data.venue : '';
 
               space.shortUrl = response.venue["shortUrl"];
-              space.photoUrl = response.venue.bestPhoto['prefix'] + 'height80' + response.venue.bestPhoto['suffix'];
+              space.photoUrl = response.venue.bestPhoto['prefix'] + 'height150' + response.venue.bestPhoto['suffix'];
               //space.lat = response.venue.location['lat'];
               //space.lng = response.venue.location['lng'];
 
-          var contentString = '<img src="' + space.photoUrl +
-              '" alt="Foursquare photo">' +
-              '<a href="' + space.shortUrl + '">' + 'Visit Foursquare' + '</a>';
+              
+          var contentString = '<h3>' + marker.title + 
+          "</h3><br><div style='width:240px;min-height:120px'><img src=" + '"' + 
+          space.photoUrl  + '"></div><div><a href="' + space.shortUrl 
+          + '">More info in Foursquare</a><img src="img/foursquare-150.png">';
 
+          infoWindow.setContent(contentString);
 
-          //console.log('fs response');
+          console.log(contentString);
           //console.log(space.photoUrl);
           //console.log(space.shortUrl);
           
