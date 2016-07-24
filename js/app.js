@@ -45,7 +45,7 @@ var initialSpaces = [
   type: 'Co-working café'
 },
 {
-  name: 'Le Laptop',
+  name: 'Laptop',
   location: {lat: 48.877355, lng: 2.391246},
   fs_id: '4f2bbe9fe4b05a27b99fa265',
   type: 'Co-working space'
@@ -75,7 +75,7 @@ var initialSpaces = [
   type: 'Co-working café'
 },
 {
-  name: 'NUMA Cowork',
+  name: 'NUMA',
   location: {lat: 48.867661509436516, lng: 2.349806826122033},
   fs_id: '52663aa3498ebda21a68cb6e',
   type: 'Co-working space'
@@ -90,14 +90,14 @@ var BaseUrl = 'https://api.foursquare.com/v2/venues/',
 
 
 // Create global variables to use in google maps
-var map;
-
-// Create a new blank array for all the listing markers
-var markers = [];
+var map,
+  infowindow,
+  bounds;
 
 //googleSuccess() is called when page is loaded
 function googleSuccess() {
   'use strict';
+
   //Google map elements - set custom map marker
   var image = {
     url: 'img/32x32.png',
@@ -172,100 +172,62 @@ function googleSuccess() {
     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     }
   };
-  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-  var largeInfoWindow = new google.maps.InfoWindow({
+  map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  infowindow = new google.maps.InfoWindow({
     maxWidth: 150,
     content: ""
   });
-
-  var bounds = new google.maps.LatLngBounds();
-
+  bounds = new google.maps.LatLngBounds();
+  
+  //Close infowindow when clicked elsewhere on the map
+  map.addListener('click', function(){
+    infowindow.close(infowindow);
+  });
+  
   // Recenter map upon window resize
   window.onresize = function () {
     map.fitBounds(bounds);
   };
 
-
-  /* The following group uses location to create an array of
-  markers to initialize*/
-  var i;
-  for (var i = 0; i < initialSpaces.length; i++) {
-    // Get a position from the arrays
-    var position = initialSpaces[i].location;
-    var title = initialSpaces[i].name;
-    // Create a marker per location, and put into markers array
-    var marker = new google.maps.Marker({
-      map: map,
-      position: position,
-      title: title,
-      icon: image,
-      animation: google.maps.Animation.DROP,
-      id: i
-    });
-    // Bounce effect on marker
-    var toggleBounce = function(marker) {
-      if (marker.getAnimation() !== null) {
-        marker.setAnimation(null);
-      } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function() {
-          marker.setAnimation(null);
-        }, 700);
-      }
-    };
-    // Push the marker to array of markers
-    markers.push(marker);
-
-    // Extend the boundaries of the map for each marker
-    bounds.extend(marker.position);
-
-    // Create an onclick event to open an infowindow and bounce the marker at each marker
-    marker.addListener('click', function(e) {
-      map.panTo(this.position);
-      populateInfoWindow(this, largeInfoWindow);
-      toggleBounce(this, largeInfoWindow);
-    });
-  }
-
-  /* This function populates the infowindow when the marker is clicked.
-    We'll only allow one infowindow which will open at the marker
-    clicked, and populate based on that markers position*/
-  function populateInfoWindow(marker, infowindow, i) {
-
-    // Check that infowindow is not already opened for this marker
-    if (infowindow.marker = marker) {
-      infowindow.marker = marker;
-      infowindow.open(map, marker);
-      
-      // Make sure the marker property is cleared if the infowindow is closed
-      infowindow.addListener('closeclick', function() {
-        infowindow.close();
-      });
-      
-      map.addListener('click', function(){
-        infowindow.close(largeInfoWindow);
-      });
-    }
-  }
-
-
+ 
   //Creating Space object
-  var Space = function (data, id, map, infowindow) {
+  var Space = function (data, id, map) {
     this.name = ko.observable(data.name);
     this.location = data.location;
-    this.marker = marker;
+    this.marker = '';
     this.markerId = id;
-    this.infoWindow = largeInfoWindow;
     this.fs_id = data.fs_id;
     this.shortUrl = '';
     this.photoUrl = '';
-    //this.lat = '';
-    //this.lng = '';
-
   }
 
-  var ViewModel = function () {
+  // Get contect infowindows
+  function getContent(space) {
+    var contentString = '<h3>' + space.name +
+      "</h3><br><div style='width:200px;min-height:120px'><img src=" + '"' +
+      space.photoUrl + '"></div><div><a href="' + space.shortUrl +
+      '">More info in Foursquare</a><img src="img/foursquare-150.png">';
+    var errorString = "Oops, Foursquare content not available."
+    if (space.name.length > 0) {
+      return contentString;
+      } else {
+      return errorString;
+      }
+  }
+
+  // Bounce effect on marker
+  function toggleBounce(marker) {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function() {
+        marker.setAnimation(null);
+      }, 700);
+    }
+  };
+  
+ function ViewModel() {
     var self = this;
 
     // Nav button control
@@ -276,20 +238,38 @@ function googleSuccess() {
 
     // Creating list elements from the spaceList
     this.spaceList = ko.observableArray([]);
-    initialSpaces.forEach(function(item, i){
-      self.spaceList.push(new Space(item, i));
+    initialSpaces.forEach(function(item){
+      self.spaceList.push(new Space(item));
     });
 
-    //Foursquare API request
+    // Create a marker per space item
+    this.spaceList().forEach(function(space) {
+      var marker = new google.maps.Marker({
+        map: map,
+        position: space.location,
+        icon: image,
+        animation: google.maps.Animation.DROP
+      });
+      space.marker = marker;
+      // Extend the boundaries of the map for each marker
+      bounds.extend(marker.position);
+      // Create an onclick event to open an infowindow and bounce the marker at each marker
+      marker.addListener('click', function(e) {
+        map.panTo(this.position);
+        infowindow.setContent(getContent(space));
+        infowindow.open(map, marker);
+        toggleBounce(marker);
+    });
+  });  
+
+    // Foursquare API request
     self.getFoursquareData = ko.computed(function(){
-      
       self.spaceList().forEach(function(space) {
         
         // Set initail variables to build the correct URL for each space
         var  venueId = space.fs_id + '/?';
         var foursquareUrl = BaseUrl + venueId + fsClient_id + fsClient_secret + fsVersion;
-
-      //console.log('fs request');
+        
         // AJAX call to Foursquare
         $.ajax({
           type: 'GET',
@@ -298,54 +278,37 @@ function googleSuccess() {
           async: true,
           cache: false,
         success: function(data) {
-                //console.log(data.response);
-                //console.log(data.response.venue.bestPhoto['prefix']);
-                //console.log(data.response.venue.bestPhoto['suffix']);
-          var response = data.response;
+          var response = data.response ? data.response : '';
           var venue = response.venue ? data.venue : '';
+              space.name = response.venue['name'];
               space.shortUrl = response.venue["shortUrl"];
               space.photoUrl = response.venue.bestPhoto['prefix'] + 'height150' + 
               response.venue.bestPhoto['suffix'];  
-          //console.log(space.shortUrl);
-    
-          //How do I assign individual content for each infoWindow?          
-          
-          var contentString = '<h3>' + marker.title + 
-          "</h3><br><div style='width:200px;min-height:120px'><img src=" + '"' + 
-          space.photoUrl  + '"></div><div><a href="' + space.shortUrl 
-          + '">More info in Foursquare</a><img src="img/foursquare-150.png">';
-          console.log(contentString);
 
-          var infoWindow = space.infoWindow; 
-          infoWindow.setContent(contentString);
-        },
-        error: function(jqXHR, textStatus, errorThrown){ 
-          infoWindow.setContent("Oops, something went wrong. Please try again later.");
-        }
+             // console.log(data.response);
+        } 
       });
     });
   });
 
-    //console.log('Hello Tarja!');
-
     // Creating click for the list item
     this.itemClick = function (space) {
       var markerId = space.markerId;
-      google.maps.event.trigger(markers[markerId], 'click');
+      google.maps.event.trigger(space.marker, 'click');
     }
-
-    // Filtering the Coworking cafés list
-    self.filter = ko.observable("");
-    this.filteredSpaceList = ko.computed(function(item) {
-      var q = self.filter().toLowerCase();
-      return ko.utils.arrayFilter(self.spaceList(), function(item) {
-        var match = item.name().toLowerCase().indexOf(q) >= 0;
-        var markerId = item.markerId;
-        markers[markerId].setVisible(match);
-        return match;
+    //TO DO!!!!!!!!
+    // Filtering the Spaces list
+    self.filter = ko.observable('');
+    self.filteredSpaceList = ko.computed(function() {
+      //var q = ;
+      return ko.utils.arrayFilter(self.spaceList(), function(space) {
+        return space.name().toLowerCase().indexOf(self.filter().toLowerCase()) >= 0;
         });
     });
   };
+
+
+ 
 
  // Activates knockout.js
 ko.applyBindings(new ViewModel());
