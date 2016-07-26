@@ -16,10 +16,20 @@ This single page application shows a map of coworking cafés in Paris. This app 
 * Add functionality using third-party APIs to provide information when a map marker or list view entry is clicked.
 * Add functionality to animate a map marker when either the list item associated with it or the map marker itself is selected.
 * Add functionality to open an infoWindow when either a location is selected from the list view or its map marker is selected directly.
-* The app's interface should be intuitive to use. For example, the input text area to filter locations should be easy to locate. It should be easy to understand what set of locations is being filtered. Selecting a location via list item or map marker should cause the map marker to bounce or in some other way animate to indicate that the location has been selected and associated info window should open above map marker with additional information.
+* The app's interface is intuitive to use. For example, the input text area to filter locations is easy to locate. It should be easy to understand what set of locations is being filtered.
+* Google maps and Forsquare errors are handled gracefully.
 
 ## How to View This App
 1. Download the source files from my repo on GitHub: https://github.com/otsop110/neighbourhood-map.git
 2. Open /index.html in your browser.
 
 ## Helpful Resources
+[Array.prototype.indexOf()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
+[Utility Functions in KnockoutJS](http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html)
+[Markdown CheatSheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+[Getting Started with JSDoc 3](http://usejsdoc.org/about-getting-started.html)
+
+
+## Acknowledgements
+This project was definately a bigger mouthful than I am ready to eat and I will not be able to finish it without help.
+I would like to thank Udacity coach Karol David for pushing me forward and guiding me through this project. Thanks also to Tamás Krasser. I would also like to thank my family for support and understanding.
