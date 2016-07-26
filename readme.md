@@ -27,7 +27,6 @@ This single page application shows a map of coworking cafés in Paris. This app 
 * [Array.prototype.indexOf()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
 * [Foursquare for Developers](https://developer.foursquare.com/)
 * [Free Styles for Google Maps](https://snazzymaps.com/)
-
 * [Getting Started with JSDoc 3](http://usejsdoc.org/about-getting-started.html)
 * [Google maps APIs](https://developers.google.com/maps/)
 * [Iconshop - Free Icons for Commercial use](https://freeiconshop.com/)
