@@ -26,7 +26,7 @@ This single page application shows a map of coworking cafés in Paris. This app 
 ## Helpful Resources
 * [Array.prototype.indexOf()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
 * [Foursquare for Developers](https://developer.foursquare.com/)
-* [Iconshop - Free Icons for Commercia use](https://freeiconshop.com/)
+* [Iconshop - Free Icons for Commercial use](https://freeiconshop.com/)
 * [Getting Started with JSDoc 3](http://usejsdoc.org/about-getting-started.html)
 * [Google maps APIs](https://developers.google.com/maps/)
 * [Knockout documentation](http://knockoutjs.com/documentation/introduction.html)
