@@ -24,14 +24,14 @@ This single page application shows a map of coworking cafés in Paris. This app 
 2. Open /index.html in your browser.
 
 ## Helpful Resources
-*[Array.prototype.indexOf()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
-*[Foursquare for Developers](https://developer.foursquare.com/)
-*[Iconshop - Free Icons for Commercia use](https://freeiconshop.com/)
-*[Getting Started with JSDoc 3](http://usejsdoc.org/about-getting-started.html)
-*[Google maps APIs](https://developers.google.com/maps/)
-*[Knockout documentation](http://knockoutjs.com/documentation/introduction.html)
-*[Markdown CheatSheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-*[Utility Functions in KnockoutJS](http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html)
+* [Array.prototype.indexOf()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
+* [Foursquare for Developers](https://developer.foursquare.com/)
+* [Iconshop - Free Icons for Commercia use](https://freeiconshop.com/)
+* [Getting Started with JSDoc 3](http://usejsdoc.org/about-getting-started.html)
+* [Google maps APIs](https://developers.google.com/maps/)
+* [Knockout documentation](http://knockoutjs.com/documentation/introduction.html)
+* [Markdown CheatSheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+* [Utility Functions in KnockoutJS](http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html)
 
 
 ## Acknowledgements
