@@ -26,14 +26,16 @@ This single page application shows a map of coworking cafés in Paris. This app 
 ## Helpful Resources
 * [Array.prototype.indexOf()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
 * [Foursquare for Developers](https://developer.foursquare.com/)
-* [Iconshop - Free Icons for Commercial use](https://freeiconshop.com/)
+* [Free Styles for Google Maps](https://snazzymaps.com/)
+
 * [Getting Started with JSDoc 3](http://usejsdoc.org/about-getting-started.html)
 * [Google maps APIs](https://developers.google.com/maps/)
+* [Iconshop - Free Icons for Commercial use](https://freeiconshop.com/)
 * [Knockout documentation](http://knockoutjs.com/documentation/introduction.html)
 * [Markdown CheatSheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 * [Utility Functions in KnockoutJS](http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html)
 
 
 ## Acknowledgements
-This project made me feel like I was walking with too big shoes. I`ve been struggling with it for quite a while and would not have been able to come this far without help.
+This project has made me feel like I was walking with too big shoes. I`ve been struggling with it for quite a while and would not have been able to come this far without help.
 I would like to thank Udacity coach Karol David for pushing me forward and guiding me through this project. Thanks also to Tamás Krasser for his valuable comments. I would also like to thank my family for support and understanding.
