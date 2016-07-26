@@ -35,5 +35,5 @@ This single page application shows a map of coworking cafés in Paris. This app 
 
 
 ## Acknowledgements
-This project was definately a bigger mouthful than I am ready to eat and I will not be able to finish it without help.
-I would like to thank Udacity coach Karol David for pushing me forward and guiding me through this project. Thanks also to Tamás Krasser. I would also like to thank my family for support and understanding.
+This project made me feel like I was walking with too big shoes. I`ve been struggling with it for quite a while and would not have been able to come this far without help.
+I would like to thank Udacity coach Karol David for pushing me forward and guiding me through this project. Thanks also to Tamás Krasser for his valuable comments. I would also like to thank my family for support and understanding.
