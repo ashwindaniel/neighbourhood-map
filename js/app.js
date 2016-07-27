@@ -99,7 +99,7 @@ function googleSuccess() {
   //Google map elements - set map options
   var mapOptions = {
     "center": {
-      "lat": 48.8676305, 
+      "lat": 48.8676305,
       "lng": 2.3495396
     },
     zoom: 13,
@@ -165,18 +165,18 @@ function googleSuccess() {
     content: ""
   });
   bounds = new google.maps.LatLngBounds();
-  
+
   // Close infowindow when clicked elsewhere on the map
   map.addListener("click", function(){
     infowindow.close(infowindow);
   });
-  
+
   // Recenter map upon window resize
   window.onresize = function () {
     map.fitBounds(bounds);
   };
 
- 
+
   //Creating Space object
   var Space = function (data, id, map) {
     var self = this;
@@ -194,7 +194,7 @@ function googleSuccess() {
     var contentString = "<h3>" + space.name +
       "</h3><br><div style='width:200px;min-height:120px'><img src=" + '"' +
       space.photoUrl + '"></div><div><a href="' + space.shortUrl +
-      '" target="_blank">More info in Foursquare</a><img src="img/foursquare-150.png">';
+      '" target="_blank">More info in Foursquare</a><img src="img/foursquare_150.png">';
     var errorString = "Oops, Foursquare content not available."
     if (space.name.length > 0) {
       return contentString;
@@ -214,7 +214,7 @@ function googleSuccess() {
       }, 700);
     }
   };
-  
+
  function ViewModel() {
     var self = this;
 
@@ -225,7 +225,7 @@ function googleSuccess() {
     };
 
     // Creating list elements from the spaceList
-    this.spaceList = ko.observableArray([]);
+    this.spaceList = ko.observableArray();
     initialSpaces.forEach(function(item){
       self.spaceList.push(new Space(item));
     });
@@ -245,21 +245,21 @@ function googleSuccess() {
       marker.addListener("click", function(e) {
         map.panTo(this.position);
         //pan down infowindow by 200px to keep whole infowindow on screen
-        map.panBy(0, -200) 
+        map.panBy(0, -200)
         infowindow.setContent(getContent(space));
         infowindow.open(map, marker);
         toggleBounce(marker);
     });
-  });  
+  });
 
     // Foursquare API request
     self.getFoursquareData = ko.computed(function(){
       self.spaceList().forEach(function(space) {
-        
+
         // Set initail variables to build the correct URL for each space
         var  venueId = space.fs_id + "/?";
         var foursquareUrl = BaseUrl + venueId + fsClient_id + fsClient_secret + fsVersion;
-        
+
         // AJAX call to Foursquare
         $.ajax({
           type: "GET",
@@ -271,9 +271,9 @@ function googleSuccess() {
             var venue = response.venue ? data.venue : "";
                 space.name = response.venue["name"];
                 space.shortUrl = response.venue["shortUrl"];
-                space.photoUrl = response.venue.bestPhoto["prefix"] + "height150" + 
-                response.venue.bestPhoto["suffix"];  
-          } 
+                space.photoUrl = response.venue.bestPhoto["prefix"] + "height150" +
+                response.venue.bestPhoto["suffix"];
+          }
         });
       });
     });
@@ -312,4 +312,3 @@ function googleSuccess() {
  // Activates knockout.js
 ko.applyBindings(new ViewModel());
 }
-
