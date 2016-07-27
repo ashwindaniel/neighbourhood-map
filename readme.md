@@ -33,7 +33,7 @@ This single page application shows a map of coworking cafés in Paris. This app 
 * [Iconshop - Free Icons for Commercial use](https://freeiconshop.com/)
 * [Knockout Documentation](http://knockoutjs.com/documentation/introduction.html)
 * [Markdown CheatSheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-
+* [A Guide to Using Github Pages](https://www.thinkful.com/learn/a-guide-to-using-github-pages/)
 * [Utility Functions in KnockoutJS](http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html)
 
 

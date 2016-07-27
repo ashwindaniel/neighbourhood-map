@@ -225,7 +225,7 @@ function googleSuccess() {
     };
 
     // Creating list elements from the spaceList
-    this.spaceList = ko.observableArray([]);
+    this.spaceList = ko.observableArray();
     initialSpaces.forEach(function(item){
       self.spaceList.push(new Space(item));
     });
