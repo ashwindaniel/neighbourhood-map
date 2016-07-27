@@ -194,7 +194,7 @@ function googleSuccess() {
     var contentString = "<h3>" + space.name +
       "</h3><br><div style='width:200px;min-height:120px'><img src=" + '"' +
       space.photoUrl + '"></div><div><a href="' + space.shortUrl +
-      '">More info in Foursquare</a><img src="img/foursquare-150.png">';
+      '" target="_blank">More info in Foursquare</a><img src="img/foursquare-150.png">';
     var errorString = "Oops, Foursquare content not available."
     if (space.name.length > 0) {
       return contentString;
@@ -244,6 +244,8 @@ function googleSuccess() {
       // Create an onclick event to open an infowindow and bounce the marker at each marker
       marker.addListener("click", function(e) {
         map.panTo(this.position);
+        //pan down infowindow by 200px to keep whole infowindow on screen
+        map.panBy(0, -200) 
         infowindow.setContent(getContent(space));
         infowindow.open(map, marker);
         toggleBounce(marker);
@@ -263,16 +265,15 @@ function googleSuccess() {
           type: "GET",
           url: foursquareUrl,
           dataType: "json",
-          async: true,
           cache: false,
-        success: function(data) {
-          var response = data.response ? data.response : "";
-          var venue = response.venue ? data.venue : "";
-              space.name = response.venue["name"];
-              space.shortUrl = response.venue["shortUrl"];
-              space.photoUrl = response.venue.bestPhoto["prefix"] + "height150" + 
-              response.venue.bestPhoto["suffix"];  
-        } 
+          success: function(data) {
+            var response = data.response ? data.response : "";
+            var venue = response.venue ? data.venue : "";
+                space.name = response.venue["name"];
+                space.shortUrl = response.venue["shortUrl"];
+                space.photoUrl = response.venue.bestPhoto["prefix"] + "height150" + 
+                response.venue.bestPhoto["suffix"];  
+          } 
         });
       });
     });

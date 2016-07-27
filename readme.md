@@ -1,4 +1,4 @@
-## Neighbourhood Map - Café & Coworking in Paris
+## Neighbourhood Map - Café & Cowork in Paris
 This single page application shows a map of coworking cafés in Paris. This app is built for a Neighbourhood map project which is a part of the Front End Web Development Nanodegree at Udacity.
 
 ## Libraries, frameworks and APIs used
