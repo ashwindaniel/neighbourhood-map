@@ -20,19 +20,20 @@ This single page application shows a map of coworking cafés in Paris. This app 
 * Google maps and Forsquare errors are handled gracefully.
 
 ## How to View This App
-1. Download the source files from my repo on GitHub: https://github.com/otsop110/neighbourhood-map.git
-2. Open /index.html in your browser.
+1. Test the app at: https://otsop110.github.io/neighbourhood-map/ or
+2. Download the source code from my repo at GitHub: https://github.com/otsop110/neighbourhood-map.git and open /index.html in your browser.
 
 ## Helpful Resources
 * [Array.prototype.indexOf()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
 * [Foursquare for Developers](https://developer.foursquare.com/)
 * [Free Styles for Google Maps](https://snazzymaps.com/)
 * [Getting Started with JSDoc 3](http://usejsdoc.org/about-getting-started.html)
+* [GitHub Help - Creating Project Pages manually](https://help.github.com/articles/creating-project-pages-manually/)
 * [Google Maps APIs](https://developers.google.com/maps/)
 * [Iconshop - Free Icons for Commercial use](https://freeiconshop.com/)
 * [Knockout Documentation](http://knockoutjs.com/documentation/introduction.html)
 * [Markdown CheatSheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-* [A Guide to Using Github Pages](https://www.thinkful.com/learn/a-guide-to-using-github-pages/)
+
 * [Utility Functions in KnockoutJS](http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html)
 
 
