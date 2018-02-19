@@ -103,6 +103,7 @@ function googleSuccess() {
       "lng": 2.3495396
     },
     zoom: 13,
+    hide:  ["featureType": "poi"],
     styles: [
     {
       "featureType": "landscape",
