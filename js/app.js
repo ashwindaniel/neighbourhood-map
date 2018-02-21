@@ -146,11 +146,8 @@ function googleSuccess() {
       ]
     },{
       "featureType": "poi",
-      "stylers": [
-        {"hue": "#00FF6A"},
-        {"saturation": -1.0989010989011234},
-        {"lightness": 11.200000000000017},
-        {"gamma": 1}
+      "stylers": "stylers": [
+        {"visibility": "off"}
       ]
     }],
     mapTypeId: google.maps.MapTypeId.ROADMAP,
