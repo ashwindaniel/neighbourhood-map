@@ -146,7 +146,7 @@ function googleSuccess() {
       ]
     },{
       "featureType": "poi",
-      "stylers": "stylers": [
+      "stylers": [
         {"visibility": "off"}
       ]
     }],
