@@ -51,8 +51,8 @@ var initialSpaces = [
 
 // Foursquare API Url parameters in global scope
 var BaseUrl = "https://api.foursquare.com/v2/venues/",
-  fsClient_id = "client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0",
-  fsClient_secret = "&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5",
+  fsClient_id = "client_id=SQLKBY0UUMKLO02QLERQVZD0A1GFMPVNTH4L1BVLNU3EOS45",
+  fsClient_secret = "&client_secret=ULIZPEN1HT5SN43B54WT5JQXJGKKSO1ZIK0HE4XY3ZJADQX5",
   fsVersion = "&v=20161507";
 
 
