@@ -7,5 +7,5 @@ bin
 #do npm install to get the node_modules in your local
 node_modules
 #css will be built from scss. so no need to watch for this
-Source/css
-README.md
+#Source/css
+#README.md
