@@ -1,0 +1,11 @@
+# to ignore all the files in final folder. The final folder is supposed
+# to be built by gulp.
+# run gulp task 'default' on node.js to build Final folder. 
+bin
+#few other files to ignore
+.vscode
+#do npm install to get the node_modules in your local
+node_modules
+#css will be built from scss. so no need to watch for this
+Source/css
+README.md

@@ -2,78 +2,58 @@
 be shown to the user.*/
 
 var initialSpaces = [
-{
-  "name": "L'AntiCafé Louvre",
-  "location": {"lat": 48.864176597929635, "lng": 2.336246967315674},
-  "fs_id": "5318c03b498e5ea5cf57b72d"
-},
-{
-  "name": "L'AntiCafé Olympiades",
-  "location": {"lat": 48.8256604845249, "lng": 2.3664236420115032},
-  "fs_id": "544f9a0b498ece3f8d42959c"
-},
-{
-  "name": "Coutume Instituutti",
-  "location": {"lat": 48.850272389609614, "lng": 2.3434848718922203},
-  "fs_id": "526282fa11d201a787f28e5d"
-},
-{
-  "name": "Coworkshop",
-  "location": {"lat": 48.873131, "lng": 2.362437},
-  "fs_id": "5392e19d498eae4bad78b309"
-},
-{
-  "name": "Craft",
-  "location": {"lat": 48.873186908994434, "lng": 2.3631128669444834},
-  "fs_id": "50420756e4b0047a41a495fc"
-},
-{
-  "name": "Draft - Les Ateliers Connectés",
-  "location": {"lat": 48.88802088292197, "lng": 2.362205516926689},
-  "fs_id": "537bb0fd498e043d3810ad17"
-},
-{
-  "name": "Hubsy",
-  "location": {"lat": 48.86593774237275, "lng": 2.3542838398926906},
-  "fs_id": "55e80d34498e4e52001fe3b9"
-},
-{
-  "name": "Laptop",
-  "location": {"lat": 48.877355, "lng": 2.391246},
-  "fs_id": "4f2bbe9fe4b05a27b99fa265"
-},
-{
-  "name": "Le Tank by Spintank",
-  "location": {"lat": 48.855174511625705, "lng": 2.3749271844045627},
-  "fs_id": "5410960d498e0fbb967291f9"
-},
-{
-  "name": "Le 10h10 Coworking Café",
-  "location": {"lat": 48.86792155932635, "lng": 2.3458970554245333},
-  "fs_id": "553f768a498ea8392e2eb0dc"
-},
-{
-  "name": "Mutinerie",
-  "location": {"lat": 48.8820919, "lng": 2.3546844},
-  "fs_id": "4f043d3029c2b9a3edd1c7f9"
-},
-{
-  "name": "Nuage Café",
-  "location": {"lat": 48.849188518347134, "lng": 2.3476003257651215},
-  "fs_id": "565071c3498e84bcd5ea4e34"
-},
-{
-  "name": "NUMA",
-  "location": {"lat": 48.867661509436516, "lng": 2.349806826122033},
-  "fs_id": "52663aa3498ebda21a68cb6e"
-}
-]
+  {
+    "name": "Aspire Systems",
+    "location": { "lat": 12.8370922, "lng": 80.2200543 },
+    "fs_id": "5318c03b498e5ea5cf57b72d"
+  },
+  {
+    "name": "Dosart",
+    "location": { "lat": 13.0815222, "lng": 80.2457823 },
+    "fs_id": "5318c03b498e5ea5cf57b72d"
+  },
+  {
+    "name": "Chennai Central",
+    "location": { "lat": 13.0834352, "lng": 80.2739593 },
+    "fs_id": "5318c03b498e5ea5cf57b72d"
+  },
+  {
+    "name": "ITC Grand Chola",
+    "location": { "lat": 13.0105896, "lng": 80.2185199 },
+    "fs_id": "5318c03b498e5ea5cf57b72d"
+  },
+  {
+    "name": "Phoenix Marketcity",
+    "location": { "lat": 12.992312, "lng": 80.2148427 },
+    "fs_id": "5318c03b498e5ea5cf57b72d"
+  },
+  {
+    "name": "Radiance Shine",
+    "location": { "lat": 12.821473, "lng": 80.2278703 },
+    "fs_id": "5318c03b498e5ea5cf57b72d"
+  },
+  {
+    "name": "Marina Beach",
+    "location": { "lat": 13.0515508, "lng": 80.2747073 },
+    "fs_id": "5318c03b498e5ea5cf57b72d"
+  },
+  {
+    "name": "SRM Institute of Science And Technology",
+    "location": { "lat": 12.822947, "lng": 80.0457755 },
+    "fs_id": "5318c03b498e5ea5cf57b72d"
+  },
+  {
+    "name": "MGM Dizzee World",
+    "location": { "lat": 12.8477897, "lng": 80.2026093 },
+    "fs_id": "5318c03b498e5ea5cf57b72d"
+  }
+];
 
 // Foursquare API Url parameters in global scope
 var BaseUrl = "https://api.foursquare.com/v2/venues/",
-    fsClient_id = "client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0",
-    fsClient_secret = "&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5",
-    fsVersion = "&v=20161507";
+  fsClient_id = "client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0",
+  fsClient_secret = "&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5",
+  fsVersion = "&v=20161507";
 
 
 // Create global variables to use in google maps
@@ -97,63 +77,64 @@ function googleSuccess() {
   };
 
   //Google map elements - set map options
+  // 13.0194459,80.2003777,12z
   var mapOptions = {
     "center": {
-      "lat": 48.8676305,
-      "lng": 2.3495396
+      "lat": 12.9999459,
+      "lng": 80.2003777
     },
-    zoom: 13,
+    zoom: 11,
     styles: [
-    {
-      "featureType": "landscape",
-      "stylers": [
-        { "hue": "#FFBB00"},
-        {"saturation": 43.400000000000006},
-        {"lightness": 37.599999999999994},
-        {"gamma": 1}
-      ]
-    },{
-      "featureType": "road.highway",
-      "stylers": [
-        {"hue": "#FFC200"},
-        {"saturation": -61.8},
-        {"lightness": 45.599999999999994},
-        {"gamma": 1}
-      ]
-    },{
-      "featureType": "road.arterial",
-      "stylers": [
-        {"hue": "#FF0300"},
-        {"saturation": -100},
-        {"lightness": 51.19999999999999},
-        {"gamma": 1}
-      ]
-    },{
-      "featureType": "road.local",
-      "stylers": [
-        {"hue": "#FF0300"},
-        {"saturation": -100},
-        {"lightness": 52},
-        {"gamma": 1}
-      ]
-    },{
-      "featureType": "water",
-      "stylers": [
-        {"hue": "#0078FF"},
-        {"saturation": -13.200000000000003},
-        {"lightness": 2.4000000000000057},
-        {"gamma": 1}
-      ]
-    },{
-      "featureType": "poi",
-      "stylers": [
-        {"visibility": "off"}
-      ]
-    }],
+      {
+        "featureType": "landscape",
+        "stylers": [
+          { "hue": "#FFBB00" },
+          { "saturation": 43.400000000000006 },
+          { "lightness": 37.599999999999994 },
+          { "gamma": 1 }
+        ]
+      }, {
+        "featureType": "road.highway",
+        "stylers": [
+          { "hue": "#FFC200" },
+          { "saturation": -61.8 },
+          { "lightness": 45.599999999999994 },
+          { "gamma": 1 }
+        ]
+      }, {
+        "featureType": "road.arterial",
+        "stylers": [
+          { "hue": "#FF0300" },
+          { "saturation": -100 },
+          { "lightness": 51.19999999999999 },
+          { "gamma": 1 }
+        ]
+      }, {
+        "featureType": "road.local",
+        "stylers": [
+          { "hue": "#FF0300" },
+          { "saturation": -100 },
+          { "lightness": 52 },
+          { "gamma": 1 }
+        ]
+      }, {
+        "featureType": "water",
+        "stylers": [
+          { "hue": "#0078FF" },
+          { "saturation": -13.200000000000003 },
+          { "lightness": 2.4000000000000057 },
+          { "gamma": 1 }
+        ]
+      }, {
+        "featureType": "poi",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      }],
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     mapTypeControl: false,
     mapTypeControlOptions: {
-    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     }
   };
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -164,7 +145,7 @@ function googleSuccess() {
   bounds = new google.maps.LatLngBounds();
 
   // Close infowindow when clicked elsewhere on the map
-  map.addListener("click", function(){
+  map.addListener("click", function () {
     infowindow.close(infowindow);
   });
 
@@ -195,9 +176,9 @@ function googleSuccess() {
     var errorString = "Oops, Foursquare content not available."
     if (space.name.length > 0) {
       return contentString;
-      } else {
+    } else {
       return errorString;
-      }
+    }
   }
 
   // Bounce effect on marker
@@ -206,70 +187,72 @@ function googleSuccess() {
       marker.setAnimation(null);
     } else {
       marker.setAnimation(google.maps.Animation.BOUNCE);
-      setTimeout(function() {
+      setTimeout(function () {
         marker.setAnimation(null);
       }, 700);
     }
   };
 
- function ViewModel() {
+  function ViewModel() {
     var self = this;
 
     // Nav button control
-    this.isNavClosed = ko.observable(false);
+    this.isNavClosed = ko.observable(true);
     this.navClick = function () {
       this.isNavClosed(!this.isNavClosed());
     };
 
     // Creating list elements from the spaceList
     this.spaceList = ko.observableArray();
-    initialSpaces.forEach(function(item){
+    initialSpaces.forEach(function (item) {
       self.spaceList.push(new Space(item));
     });
 
     // Create a marker per space item
-    this.spaceList().forEach(function(space) {
+    this.spaceList().forEach(function (space) {
       var marker = new google.maps.Marker({
         map: map,
         position: space.location,
-        icon: image,
+        // icon: image,
         animation: google.maps.Animation.DROP
       });
       space.marker = marker;
       // Extend the boundaries of the map for each marker
       bounds.extend(marker.position);
       // Create an onclick event to open an infowindow and bounce the marker at each marker
-      marker.addListener("click", function(e) {
+      marker.addListener("click", function (e) {
         map.panTo(this.position);
         //pan down infowindow by 200px to keep whole infowindow on screen
         map.panBy(0, -200)
         infowindow.setContent(getContent(space));
         infowindow.open(map, marker);
         toggleBounce(marker);
+      });
     });
-  });
 
     // Foursquare API request
-    self.getFoursquareData = ko.computed(function(){
-      self.spaceList().forEach(function(space) {
+    self.getFoursquareData = ko.computed(function () {
+      self.spaceList().forEach(function (space) {
 
         // Set initail variables to build the correct URL for each space
-        var  venueId = space.fs_id + "/?";
+        var venueId = space.fs_id + "/?";
         var foursquareUrl = BaseUrl + venueId + fsClient_id + fsClient_secret + fsVersion;
-
+        // space.name = "Name given";
+        // space.shortUrl = "comeUrl";
+        // space.photoUrl = "Pic";
         // AJAX call to Foursquare
         $.ajax({
           type: "GET",
           url: foursquareUrl,
           dataType: "json",
           cache: false,
-          success: function(data) {
+          success: function (data) {
             var response = data.response ? data.response : "";
             var venue = response.venue ? data.venue : "";
-                space.name = response.venue["name"];
-                space.shortUrl = response.venue["shortUrl"];
-                space.photoUrl = response.venue.bestPhoto["prefix"] + "height150" +
-                response.venue.bestPhoto["suffix"];
+            space.name = response.venue["name"];
+            space.shortUrl = response.venue["shortUrl"];
+            space.photoUrl = response.venue.bestPhoto["prefix"] + "height150" +
+              response.venue.bestPhoto["suffix"];
           }
         });
       });
@@ -284,28 +267,28 @@ function googleSuccess() {
     // Filtering the Space list
     self.filter = ko.observable("");
 
-    this.filteredSpaceList = ko.dependentObservable(function() {
+    this.filteredSpaceList = ko.dependentObservable(function () {
       var q = this.filter().toLowerCase();
       //var self = this;
       if (!q) {
-      // Return self.spaceList() the original array;
-      return ko.utils.arrayFilter(self.spaceList(), function(item) {
-        item.marker.setVisible(true);
-        return true;
-      });
-      } else {
-        return ko.utils.arrayFilter(this.spaceList(), function(item) {
-          if (item.name.toLowerCase().indexOf(q) >= 0) {
+        // Return self.spaceList() the original array;
+        return ko.utils.arrayFilter(self.spaceList(), function (item) {
+          item.marker.setVisible(true);
           return true;
+        });
+      } else {
+        return ko.utils.arrayFilter(this.spaceList(), function (item) {
+          if (item.name.toLowerCase().indexOf(q) >= 0) {
+            return true;
           } else {
             item.marker.setVisible(false);
-          return false;
+            return false;
           }
         });
       }
     }, this);
   };
 
- // Activates knockout.js
-ko.applyBindings(new ViewModel());
+  // Activates knockout.js
+  ko.applyBindings(new ViewModel());
 }
