@@ -160,7 +160,7 @@ function googleSuccess() {
     this.fs_id = data.fs_id;
     this.shortUrl = "";
     this.photoUrl = "";
-  }
+  };
 
   // Get contect infowindows
   function getContent(space) {
@@ -168,7 +168,7 @@ function googleSuccess() {
       "</h3><br><div style='width:200px;min-height:120px'><img src=" + '"' +
       space.photoUrl + '"></div><div><a href="' + space.shortUrl +
       '" target="_blank">More info in Foursquare</a><img src="img/foursquare_150.png">';
-    var errorString = "Oops, Foursquare content not available."
+    var errorString = "Oops, Foursquare content not available.";
     if (space.name.length > 0) {
       return contentString;
     } else {
@@ -186,7 +186,7 @@ function googleSuccess() {
         marker.setAnimation(null);
       }, 700);
     }
-  };
+  }
 
   function ViewModel() {
     var self = this;
@@ -218,7 +218,7 @@ function googleSuccess() {
       marker.addListener("click", function (e) {
         map.panTo(this.position);
         //pan down infowindow by 200px to keep whole infowindow on screen
-        map.panBy(0, -200)
+        map.panBy(0, -200);
         infowindow.setContent(getContent(space));
         infowindow.open(map, marker);
         toggleBounce(marker);
@@ -257,7 +257,7 @@ function googleSuccess() {
     this.itemClick = function (space) {
       var markerId = space.markerId;
       google.maps.event.trigger(space.marker, "click");
-    }
+    };
 
     // Filtering the Space list
     self.filter = ko.observable("");
@@ -282,7 +282,7 @@ function googleSuccess() {
         });
       }
     }, this);
-  };
+  }
 
   // Activates knockout.js
   ko.applyBindings(new ViewModel());
