@@ -5,47 +5,42 @@ var initialSpaces = [
   {
     "name": "Aspire Systems",
     "location": { "lat": 12.8370922, "lng": 80.2200543 },
-    "fs_id": "5318c03b498e5ea5cf57b72d"
-  },
-  {
-    "name": "Dosart",
-    "location": { "lat": 13.0815222, "lng": 80.2457823 },
-    "fs_id": "5318c03b498e5ea5cf57b72d"
+    "fs_id": "4cac25192f08236a4a7d8961"
   },
   {
     "name": "Chennai Central",
     "location": { "lat": 13.0834352, "lng": 80.2739593 },
-    "fs_id": "5318c03b498e5ea5cf57b72d"
+    "fs_id": "5624c11e498eec470ec9d53e"
   },
   {
     "name": "ITC Grand Chola",
     "location": { "lat": 13.0105896, "lng": 80.2185199 },
-    "fs_id": "5318c03b498e5ea5cf57b72d"
+    "fs_id": "4d848e465ad3a0932c8dd1fd"
   },
   {
     "name": "Phoenix Marketcity",
     "location": { "lat": 12.992312, "lng": 80.2148427 },
-    "fs_id": "5318c03b498e5ea5cf57b72d"
+    "fs_id": "4fe16257e4b0e4cc311bb9ab"
   },
   {
     "name": "Radiance Shine",
     "location": { "lat": 12.821473, "lng": 80.2278703 },
-    "fs_id": "5318c03b498e5ea5cf57b72d"
+    "fs_id": "55b7676d498e4a3a0deab767"
   },
   {
     "name": "Marina Beach",
     "location": { "lat": 13.0515508, "lng": 80.2747073 },
-    "fs_id": "5318c03b498e5ea5cf57b72d"
+    "fs_id": "4d046ec926adb1f721c3d270"
   },
   {
     "name": "SRM Institute of Science And Technology",
     "location": { "lat": 12.822947, "lng": 80.0457755 },
-    "fs_id": "5318c03b498e5ea5cf57b72d"
+    "fs_id": "4e12c7047d8b4d5613e67466"
   },
   {
     "name": "MGM Dizzee World",
     "location": { "lat": 12.8477897, "lng": 80.2026093 },
-    "fs_id": "5318c03b498e5ea5cf57b72d"
+    "fs_id": "4d3fd175cb84b60c2a9680ab"
   }
 ];
 
