@@ -1,7 +1,5 @@
-/** The model for app. These are the coworking spaces listings that will
-be shown to the user.*/
-
-var initialSpaces = [
+/*jshint esversion: 6 */
+var definedPlaces = [
   {
     "name": "Aspire Systems",
     "location": { "lat": 12.8370922, "lng": 80.2200543 },
@@ -46,15 +44,18 @@ var initialSpaces = [
 
 // Foursquare API Url parameters in global scope
 var BaseUrl = "https://api.foursquare.com/v2/venues/",
-  fsClient_id = "client_id=SQLKBY0UUMKLO02QLERQVZD0A1GFMPVNTH4L1BVLNU3EOS45",
-  fsClient_secret = "&client_secret=ULIZPEN1HT5SN43B54WT5JQXJGKKSO1ZIK0HE4XY3ZJADQX5",
+  fsClient_id = "client_id=J4JTA0KKSKB50R1ONPYB3W4H532SPS403IHJKL4VQMNMNKT0",
+  fsClient_secret = "&client_secret=W5FBT3FTE1X4RVJXPSJJDNNXCYHXL0OMH1TPVINZ40NO0LX5",
   fsVersion = "&v=20161507";
 
 
 // Create global variables to use in google maps
 var map,
-  infowindow,
+  popUpInformation,
   bounds;
+
+let PAN_BY_INIT_RANGE = 0;
+let PAN_BY_FINAL_RANGE = -200;
 
 //googleSuccess() is called when page is loaded
 function googleSuccess() {
@@ -65,93 +66,69 @@ function googleSuccess() {
     "url": "img/32x32.png",
     // This marker is 32 pixels wide by 32 pixels high.
     "size": new google.maps.Size(32, 32),
-    // The origin for this image is (0, 0).
+    // The origin for this image is (0, 0) .
     "origin": new google.maps.Point(0, 0),
     // The anchor for this image is the base of the flagpole at (0, 32).
     "anchor": new google.maps.Point(0, 32)
   };
 
-  //Google map elements - set map options
-  // 13.0194459,80.2003777,12z
+
+  function getStyle(type, hue, saturation, lightness, gamma) {
+    var style = {
+      "featureType": type,
+      "stylers": [
+        { "hue": hue },
+        { "saturation": saturation },
+        { "lightness": lightness },
+        { "gamma": gamma }
+      ]
+    };
+    return style;
+  }
+
+  //Configuration for the google map
+  var landscape = getStyle("landscape", "#0044ff", 73.40, 37.59, 1);
+  var roadHighway = getStyle("road.highway", "#ff4300", -70.8, 45.59, 1);
+  var roadArterial = getStyle("road.arterial", "#00fcff", -100, 51.19, 1);
+  var roadLocal = getStyle("road.local", "#FF0300", -100, 52, 1);
+  var water = getStyle("water", "#0054b3", -5.20, 2.40, 1);
+
+  var poi = {
+    "featureType": "poi",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  };
+
   var mapOptions = {
     "center": {
       "lat": 12.9999459,
       "lng": 80.2003777
     },
     zoom: 11,
-    styles: [
-      {
-        "featureType": "landscape",
-        "stylers": [
-          { "hue": "#FFBB00" },
-          { "saturation": 43.400000000000006 },
-          { "lightness": 37.599999999999994 },
-          { "gamma": 1 }
-        ]
-      }, {
-        "featureType": "road.highway",
-        "stylers": [
-          { "hue": "#FFC200" },
-          { "saturation": -61.8 },
-          { "lightness": 45.599999999999994 },
-          { "gamma": 1 }
-        ]
-      }, {
-        "featureType": "road.arterial",
-        "stylers": [
-          { "hue": "#FF0300" },
-          { "saturation": -100 },
-          { "lightness": 51.19999999999999 },
-          { "gamma": 1 }
-        ]
-      }, {
-        "featureType": "road.local",
-        "stylers": [
-          { "hue": "#FF0300" },
-          { "saturation": -100 },
-          { "lightness": 52 },
-          { "gamma": 1 }
-        ]
-      }, {
-        "featureType": "water",
-        "stylers": [
-          { "hue": "#0078FF" },
-          { "saturation": -13.200000000000003 },
-          { "lightness": 2.4000000000000057 },
-          { "gamma": 1 }
-        ]
-      }, {
-        "featureType": "poi",
-        "stylers": [
-          { "visibility": "off" }
-        ]
-      }],
+    styles: [landscape, roadHighway, roadArterial, roadLocal, water, poi],
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     mapTypeControl: false,
     mapTypeControlOptions: {
       style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     }
   };
+
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
-  infowindow = new google.maps.InfoWindow({
+  popUpInformation = new google.maps.InfoWindow({
     maxWidth: 150,
     content: ""
   });
   bounds = new google.maps.LatLngBounds();
 
-  // Close infowindow when clicked elsewhere on the map
-  map.addListener("click", function () {
-    infowindow.close(infowindow);
-  });
 
-  // Recenter map upon window resize
-  window.onresize = function () {
-    map.fitBounds(bounds);
-  };
+  map.addListener("click", () => popUpInformation.close(popUpInformation));
+  window.onresize = () => map.fitBounds(bounds);
 
 
-  //Creating Space object
-  var Space = function (data, id, map) {
+
+
+  var Place = function (data, id, map) {
     var self = this;
     this.name = ko.observable(data.name);
     this.location = data.location;
@@ -162,21 +139,21 @@ function googleSuccess() {
     this.photoUrl = "";
   };
 
-  // Get contect infowindows
-  function getContent(space) {
-    var contentString = "<h3>" + space.name +
+
+  function getContent(place) {
+    var contentString = "<h3>" + place.name +
       "</h3><br><div style='width:200px;min-height:120px'><img src=" + '"' +
-      space.photoUrl + '"></div><div><a href="' + space.shortUrl +
+      place.photoUrl + '"></div><div><a href="' + place.shortUrl +
       '" target="_blank">More info in Foursquare</a><img src="img/foursquare_150.png">';
     var errorString = "Oops, Foursquare content not available.";
-    if (space.name.length > 0) {
+    if (place.name.length > 0) {
       return contentString;
     } else {
       return errorString;
     }
   }
 
-  // Bounce effect on marker
+
   function toggleBounce(marker) {
     if (marker.getAnimation() !== null) {
       marker.setAnimation(null);
@@ -191,51 +168,51 @@ function googleSuccess() {
   function ViewModel() {
     var self = this;
 
-    // Nav button control
+
     this.isNavClosed = ko.observable(true);
     this.navClick = function () {
       this.isNavClosed(!this.isNavClosed());
     };
 
-    // Creating list elements from the spaceList
-    this.spaceList = ko.observableArray();
-    initialSpaces.forEach(function (item) {
-      self.spaceList.push(new Space(item));
+
+    this.places = ko.observableArray();
+    definedPlaces.forEach((item) => self.places.push(new Place(item)));
+
+    this.places().forEach((place) => {
+      var marker = makePlaceMarker(place);
+      place.marker = marker;
+      bounds.extend(marker.position);
+
+      marker.addListener("click", (e) => {
+        markerListener(place, marker);
+      });
     });
 
-    // Create a marker per space item
-    this.spaceList().forEach(function (space) {
+
+    function markerListener(place, marker) {
+      map.panBy(PAN_BY_INIT_RANGE, PAN_BY_FINAL_RANGE);
+      popUpInformation.setContent(getContent(place));
+      popUpInformation.open(map, marker);
+      toggleBounce(marker);
+    }
+
+
+
+    function makePlaceMarker(place) {
       var marker = new google.maps.Marker({
         map: map,
-        position: space.location,
-        // icon: image,
+        position: place.location,
         animation: google.maps.Animation.DROP
       });
-      space.marker = marker;
-      // Extend the boundaries of the map for each marker
-      bounds.extend(marker.position);
-      // Create an onclick event to open an infowindow and bounce the marker at each marker
-      marker.addListener("click", function (e) {
-        map.panTo(this.position);
-        //pan down infowindow by 200px to keep whole infowindow on screen
-        map.panBy(0, -200);
-        infowindow.setContent(getContent(space));
-        infowindow.open(map, marker);
-        toggleBounce(marker);
-      });
-    });
+      return marker;
+    }
 
-    // Foursquare API request
+
     self.getFoursquareData = ko.computed(function () {
-      self.spaceList().forEach(function (space) {
-
-        // Set initail variables to build the correct URL for each space
-        var venueId = space.fs_id + "/?";
+      self.places().forEach(function (place) {
+        var venueId = place.fs_id + "/?";
         var foursquareUrl = BaseUrl + venueId + fsClient_id + fsClient_secret + fsVersion;
-        // space.name = "Name given";
-        // space.shortUrl = "comeUrl";
-        // space.photoUrl = "Pic";
-        // AJAX call to Foursquare
+
         $.ajax({
           type: "GET",
           url: foursquareUrl,
@@ -244,36 +221,38 @@ function googleSuccess() {
           success: function (data) {
             var response = data.response ? data.response : "";
             var venue = response.venue ? data.venue : "";
-            space.name = response.venue["name"];
-            space.shortUrl = response.venue["shortUrl"];
-            space.photoUrl = response.venue.bestPhoto["prefix"] + "height150" +
-              response.venue.bestPhoto["suffix"];
+            place.name = response.venue["name"];
+            place.shortUrl = response.venue["shortUrl"];
+            if (response.venue.bestPhoto != null)
+              place.photoUrl = response.venue.bestPhoto["prefix"] + "height150" +
+                response.venue.bestPhoto["suffix"];
+            else
+              place.photoUrl = "img/pic404.jpg";
           }
         });
       });
     });
 
-    // Creating click for the list item
-    this.itemClick = function (space) {
-      var markerId = space.markerId;
-      google.maps.event.trigger(space.marker, "click");
+
+    this.itemClick = (place) => {
+      var markerId = place.markerId;
+      google.maps.event.trigger(place.marker, "click");
     };
 
-    // Filtering the Space list
+
     self.filter = ko.observable("");
 
-    this.filteredSpaceList = ko.dependentObservable(function () {
-      var q = this.filter().toLowerCase();
-      //var self = this;
-      if (!q) {
-        // Return self.spaceList() the original array;
-        return ko.utils.arrayFilter(self.spaceList(), function (item) {
+    this.filteredPlaces = ko.dependentObservable(() => {
+      var query = this.filter().toLowerCase();
+      if (!query) {
+
+        return ko.utils.arrayFilter(self.places(), function (item) {
           item.marker.setVisible(true);
           return true;
         });
       } else {
-        return ko.utils.arrayFilter(this.spaceList(), function (item) {
-          if (item.name.toLowerCase().indexOf(q) >= 0) {
+        return ko.utils.arrayFilter(this.places(), function (item) {
+          if (item.name.toLowerCase().indexOf(query) >= 0) {
             return true;
           } else {
             item.marker.setVisible(false);
@@ -284,7 +263,7 @@ function googleSuccess() {
     }, this);
   }
 
-  // Activates knockout.js
+
   ko.applyBindings(new ViewModel());
 }
 'use strict';
