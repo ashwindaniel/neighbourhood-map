@@ -7,53 +7,54 @@
 
   <title>My Fav Places in Chennai </title>
 
+  <!--CSS Dependencies-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/newstyle.css">
+  <link rel="stylesheet" href="css/animation.css">
 
 
+  <!--JavaScript Dependencies-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/maperror.js"></script>
+  <script src="js/error.js"></script>
+  <script src="js/animation.js"></script>
+  <!--Define your registred Google Map API-->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKV7Nh4wLfoA6UmaKtD4ghppnaYioE2VE&v3&callback=googleSuccess"
-    onerror="mapError()"></script>
+    onerror="googleError()"></script>
 
 </head>
 
 <body>
-  <header>
-    <h1>
-      <i id="nav-button" class="nav-button fa fa-lg fa-arrow-circle-left" data-bind="click: navClick, css: {'fa-arrow-circle-right': isNavClosed}"></i>My Fav Places in Chennai</h1>
-  </header>
 
-  <div id="container" class="container">
-    <div id="menu" class="menu speed" data-bind="css: {'moveLeft': isNavClosed}">
-      <div id="floating-panel" class="floating-panel">
-      </div>
-      <div id="list-container" class="list-container">
-        <div id="filter" class="filter">
-          <div>Filter results:
-            <form id="filter-form" class="filter-form">
-              <input data-bind="textInput: filter, valueUpdate:'afterkeydown'" autocomplete="on" id="filter-input" class="filter-input"
-                placeholder="Search from the list">
-              <button type="submit">Clear</button>
-            </form>
-          </div>
-        </div>
-        <div id="list" class="list">
-          <h2>Place of Interest </h2>
-          <ul data-bind="foreach: filteredPlaces, visible: filteredPlaces().length > 0" id="list-spaces" class="list-spaces">
-            <li data-bind="text: name, click: $root.itemClick"></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div id="map" class="map"></div>
-    <div id="map-error" class="map-error"></div>
+  <div id="mySidenav" class="container-fluid sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <section id="filter" class="filter">
+      <article>
+        <span class="navText">Search results:</span>
+        <form id="filter-form" class="filter-form">
+          <input data-bind="textInput: filter, valueUpdate:'afterkeydown'" autocomplete="on" id="filter-input" class="filter-input"
+            placeholder="Filter your location">
+        </form>
+      </article>
+    </section>
+
+    <section id="list" class="list">
+      <h2 class="navText">Place of Interest </h2>
+      <ul data-bind="foreach: filteredPlaces, visible: filteredPlaces().length > 0" id="list-spaces" class="list-spaces">
+        <a href="#" data-bind="text: name, click: $root.itemClick"></a>
+      </ul>
+    </section>
   </div>
 
-
+  <section id="main" class="main map">
+    <button onclick="openNav()">open</button>
+    <span class="title">My favourite places in Chennai</span>
+    <div id="map" class="map" onclick="closeNav()"></div>
+    <div id="map-error" class="map-error"></div>
+  </section>
 </body>
 
 </html>
